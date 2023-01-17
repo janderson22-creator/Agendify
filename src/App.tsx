@@ -1,11 +1,16 @@
+import Global from "./styles/global";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Routes } from "./routes";
 
 function App() {
-
   return (
-    <div>
-      <p>oi</p>
-    </div>
-  )
+    <Router>
+      <div>
+        <Global />
+        <Routes />
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
