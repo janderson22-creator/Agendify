@@ -1,9 +1,10 @@
+import Global from "./styles/global"
 
 function App() {
 
   return (
     <div>
-      <p>oi</p>
+      <Global />
     </div>
   )
 }
