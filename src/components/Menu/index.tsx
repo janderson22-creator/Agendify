@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router";
+import { ArrowRightIcon } from "../../assets/icons/arrowRight";
 import { HomeIcon } from "../../assets/icons/homeIcon";
 import { ProductsIcon } from "../../assets/icons/productsIcon";
 import { SchedulesIcon } from "../../assets/icons/schedulesIcon";
@@ -58,6 +59,12 @@ const Menu: React.FC = () => {
             </S.NameLink>
           </S.ContainerLink>
         ))}
+
+        <S.ArrowButtonContainer>
+            <S.ContainerIcon>
+                <ArrowRightIcon />
+            </S.ContainerIcon>
+        </S.ArrowButtonContainer>
       </S.ItemsMenu>
     </S.Container>
   );

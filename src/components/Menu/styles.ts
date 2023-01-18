@@ -68,3 +68,26 @@ export const NameLink = styled.span<Props>`
     props.checked ? "rgba(244, 244, 246, 1)" : "rgba(202, 202, 229, 1)"};
   margin-left: 15px;
 `;
+
+export const ArrowButtonContainer = styled.div`
+  background: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 100%;
+  position: absolute;
+  right: -20px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  padding: 3px;
+  cursor: pointer;
+` 
+export const ContainerIcon = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background: #738CBF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
