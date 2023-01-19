@@ -1,11 +1,11 @@
 import * as S from "./styles";
 
-const Home: React.FC = () => {
+const Products: React.FC = () => {
   return (
     <S.Container>
-      HOME
+      PRODUCTS
     </S.Container>
   );
 };
 
-export default Home;
+export default Products;

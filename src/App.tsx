@@ -1,17 +1,19 @@
 import Global from "./styles/global";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Routes } from "./routes";
+import React from "react";
 import Menu from "./components/Menu";
+import { BrowserRouter as Router } from "react-router-dom";
+import RoutesMain from "./routes";
 
-function App() {
+const App: React.FC = () => {
   return (
     <Router>
+      <RoutesMain />
       <div className="flex">
         <Menu />
-        {/* <Routes /> */}
+        <Global />
       </div>
     </Router>
   );
-}
+};
 
 export default App;
