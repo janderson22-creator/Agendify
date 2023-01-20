@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
-import { useHistory } from "react-router";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "../../assets/icons/arrowRight";
 import { HomeIcon } from "../../assets/icons/homeIcon";
@@ -7,43 +6,40 @@ import { ProductsIcon } from "../../assets/icons/productsIcon";
 import { SchedulesIcon } from "../../assets/icons/schedulesIcon";
 import { ServicesIcon } from "../../assets/icons/services";
 import Logo from "../../assets/images/logo.png";
+import { useCommerce } from "../../context/commerce";
 import * as S from "./styles";
 
 const Menu: React.FC = () => {
   const [currentItem, setCurrentItem] = useState("Inicio");
   const [show, setShow] = useState(false);
+  const { commerceId } = useCommerce();
+  
+
   const items = useMemo(
     () => [
       {
         name: "Inicio",
-        router: `/jandersonStudio/123`,
+        router: `/jandersonStudio/${commerceId}`,
         icon: <HomeIcon />,
       },
       {
         name: "Agendamentos",
-        router: `/jandersonStudio/123/schedules`,
+        router: `/jandersonStudio/${commerceId}/schedules`,
         icon: <SchedulesIcon />,
       },
       {
         name: "Produtos",
-        router: `/jandersonStudio/123/products`,
+        router: `/jandersonStudio/${commerceId}/products`,
         icon: <ProductsIcon />,
       },
       {
         name: "Serviços",
-        router: `/jandersonStudio/123/services`,
+        router: `/jandersonStudio/${commerceId}/services`,
         icon: <ServicesIcon />,
       },
     ],
     []
   );
-  // const history = useHistory();
-
-  // const currentRestaurantId = useMemo(() => {
-  //   var path = history.location.pathname.split("/");
-
-  //   return path[2];
-  // }, [history]);
 
   return (
     <S.Container show={show}>

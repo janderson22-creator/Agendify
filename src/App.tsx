@@ -1,8 +1,9 @@
 import Global from "./styles/global";
 import React from "react";
 import Menu from "./components/Menu";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router} from "react-router-dom";
 import RoutesMain from "./routes";
+
 
 const App: React.FC = () => {
   return (
