@@ -141,7 +141,8 @@ export const NameLink = styled.span<Props>`
     display: flex;
     font-size: 11px;
     animation: unset;
-    margin-left: 2px;
+    text-align: center;
+    margin-left: 4px;
     margin-top: ${(props) => (props.name === "Inicio" ? "2px" : "6px")};
   }
 `;
