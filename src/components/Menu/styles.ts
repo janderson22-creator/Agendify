@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 interface Props {
   checked?: boolean;
-  show?: boolean
+  show?: boolean;
+  name?: string;
 }
 
 export const Container = styled.div<Props>`
@@ -11,7 +12,7 @@ export const Container = styled.div<Props>`
   position: fixed;
   left: 0;
   top: 50px;
-  width: ${(props) => (props.show ? '90px' : '210px')};
+  width: ${(props) => (props.show ? "90px" : "210px")};
   height: 90%;
   background: linear-gradient(
       86.57deg,
@@ -22,12 +23,35 @@ export const Container = styled.div<Props>`
     linear-gradient(0deg, #ffffff, #ffffff);
   box-shadow: 2px 5px 20px 1px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease-in;
+
+  @media (max-width: 1023px) {
+    top: unset;
+    bottom: 15px;
+    border-radius: 200px;
+    width: 90%;
+    height: unset;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    padding: 0;
+    display: flex;
+  }
 `;
 
 export const ItemsMenu = styled.div`
   padding-left: 15px;
   padding-top: 20px;
   padding-right: 25px;
+
+  @media (max-width: 1023px) {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px 15px;
+    padding-left: 0;
+  }
 `;
 
 export const ContainerLink = styled.div<Props>`
@@ -57,12 +81,33 @@ export const ContainerLink = styled.div<Props>`
   :first-child {
     padding-left: 13px;
   }
+
+  @media (max-width: 1023px) {
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    height: unset;
+    background: unset;
+    width: 100%;
+    :hover {
+      background: unset;
+    }
+    :first-child {
+      padding-left: 0;
+    }
+  }
 `;
 
 export const Icon = styled.div<Props>`
   svg {
     path {
       fill: ${(props) => (props.checked ? "#F4F4F6" : "#BBBBD2")};
+    }
+  }
+  @media (max-width: 1023px) {
+    svg {
+      width: 20px;
     }
   }
 `;
@@ -91,6 +136,14 @@ export const NameLink = styled.span<Props>`
       opacity: 1;
     }
   }
+
+  @media (max-width: 1023px) {
+    display: flex;
+    font-size: 11px;
+    animation: unset;
+    margin-left: 2px;
+    margin-top: ${(props) => (props.name === "Inicio" ? "2px" : "6px")};
+  }
 `;
 
 export const ArrowButtonContainer = styled.div<Props>`
@@ -105,15 +158,19 @@ export const ArrowButtonContainer = styled.div<Props>`
   margin: auto 0;
   padding: 3px;
   cursor: pointer;
-  transform: ${(props) => props.show ? 'rotate(180deg)' : 'rotate(0deg)'};
+  transform: ${(props) => (props.show ? "rotate(180deg)" : "rotate(0deg)")};
   transition: all 0.3s ease-in;
-` 
+
+  @media (max-width: 1023px) {
+    display: none;
+  }
+`;
 export const ContainerIcon = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 100%;
-  background: #738CBF;
+  background: #738cbf;
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;

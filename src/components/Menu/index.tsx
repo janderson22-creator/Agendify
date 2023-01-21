@@ -13,7 +13,6 @@ const Menu: React.FC = () => {
   const [currentItem, setCurrentItem] = useState("Inicio");
   const [show, setShow] = useState(false);
   const { commerceId } = useCommerce();
-  
 
   const items = useMemo(
     () => [
@@ -23,7 +22,7 @@ const Menu: React.FC = () => {
         icon: <HomeIcon />,
       },
       {
-        name: "Agendamentos",
+        name: window.innerWidth > 1023 ? "Agendamentos" : "Agendar",
         router: `/jandersonStudio/${commerceId}/schedules`,
         icon: <SchedulesIcon />,
       },
@@ -43,7 +42,7 @@ const Menu: React.FC = () => {
 
   return (
     <S.Container show={show}>
-      <div>
+      <div className="hidden lg:block xl:block">
         <img src={Logo} alt="logo-img" />
       </div>
       <S.ItemsMenu>
@@ -54,7 +53,7 @@ const Menu: React.FC = () => {
               onClick={() => setCurrentItem(item.name)}
             >
               <S.Icon checked={item.name === currentItem}>{item.icon}</S.Icon>
-              <S.NameLink show={show} checked={item.name === currentItem}>
+              <S.NameLink name={item.name} show={show} checked={item.name === currentItem}>
                 {item.name}
               </S.NameLink>
             </S.ContainerLink>
