@@ -9,6 +9,7 @@ export const Header = styled.div`
   box-shadow: 0px 0px 10.666666984558105px 1.7777777910232544px
     rgba(0, 0, 0, 0.1);
   border-radius: 0 0 17px 17px;
+  padding-bottom: 15px;
 `;
 
 export const CoverImage = styled.img`
@@ -33,17 +34,18 @@ export const ProfileImage = styled.img`
 
 export const CommerceName = styled.p`
   font-size: 28px;
-  font-weight: 600;
-  color: #3f3f3f;
+  font-weight: 700;
+  color: #0D0D0D;
 `;
 export const CommerceType = styled.p`
   font-size: 16px;
   font-weight: 400;
-  color: #7c7c81;
+  color: #0D0D0D;
 `;
 
 export const TimeOpen = styled.div<Props>`
-  background: ${(props) => (props.open ? "rgba(218, 242, 238, 1)" : "rgba(255, 229, 229, 1)")};
+  background: ${(props) =>
+    props.open ? "rgba(218, 242, 238, 1)" : "rgba(255, 229, 229, 1)"};
   border-radius: 100px;
   width: fit-content;
   padding: 5px 0px;
@@ -63,4 +65,16 @@ export const Icon = styled.div<Props>`
   background: ${(props) => (props.open ? "rgba(37, 221, 55, 1)" : "#F0AFAF")};
   border-radius: 100%;
   margin-right: 51px;
+`;
+
+export const KnowMore = styled.span`
+  cursor: pointer;
+  border-radius: 100px;
+  border: none;
+  background: #738cbf;
+  padding: 8px 30px;
+
+  font-size: 18px;
+  font-weight: 400;
+  color: #0D0D0D;
 `;

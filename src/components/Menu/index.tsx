@@ -22,7 +22,7 @@ const Menu: React.FC = () => {
         icon: <HomeIcon />,
       },
       {
-        name: window.innerWidth > 1023 ? "Agendamentos" : "Agendar",
+        name: "Agendar",
         router: `/jandersonStudio/${commerceId}/schedules`,
         icon: <SchedulesIcon />,
       },
