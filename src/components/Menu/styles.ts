@@ -8,12 +8,11 @@ interface Props {
 
 export const Container = styled.div<Props>`
   border: transparent;
+  margin: auto 0;
   border-radius: 0 50px 50px 0;
-  position: fixed;
-  left: 0;
-  top: 50px;
+  position: relative;
   width: ${(props) => (props.show ? "90px" : "210px")};
-  height: 90%;
+  height: 90vh;
   background: linear-gradient(
       86.57deg,
       #373740 47.14%,
@@ -25,6 +24,7 @@ export const Container = styled.div<Props>`
   transition: all 0.3s ease-in;
 
   @media (max-width: 1023px) {
+    position: fixed;
     top: unset;
     bottom: 15px;
     border-radius: 200px;
