@@ -11,12 +11,15 @@
   "dependencies": {
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-slick": "^0.23.10",
     "@types/styled-components": "^5.1.26",
     "@types/tailwindcss": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router": "6",
     "react-router-dom": "6",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

@@ -46,7 +46,7 @@ export const CommerceType = styled.p`
 export const TimeOpen = styled.div<Props>`
   background: ${(props) =>
     props.open ? "rgba(218, 242, 238, 1)" : "rgba(255, 229, 229, 1)"};
-  border-radius: 100px;
+  border-radius: 12px;
   width: fit-content;
   padding: 5px 0px;
   padding-left: 18px;
@@ -69,12 +69,13 @@ export const Icon = styled.div<Props>`
 
 export const KnowMore = styled.span`
   cursor: pointer;
-  border-radius: 100px;
+  border-radius: 12px;
   border: none;
-  background: #738cbf;
+  background: #fff;
+  border: 2px solid #738cbf;
   padding: 8px 30px;
 
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   color: #0D0D0D;
 `;
