@@ -159,9 +159,4 @@ const settings = {
       <ArrowRightSlider />
     </S.ArrowRight>
   ),
-  prevArrow: (
-    <div>
-      <ArrowRightIcon />
-    </div>
-  ),
 };
