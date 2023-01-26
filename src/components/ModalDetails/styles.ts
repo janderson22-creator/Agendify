@@ -128,4 +128,27 @@ export const ArrowRight = styled.div`
     display: none;
   }
 `;
-export const ArrowLeft = styled.div``;
+
+export const LabelInformation = styled.p`
+  font-size: 16px;
+  font-weight: 500;
+  color: #3f3f3f;
+`;
+
+export const Subtitle = styled.p`
+  font-size: 14px;
+  font-weight: 400;
+  color: #787878;
+`;
+
+export const Icon = styled.div`
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  background: rgba(180, 179, 210, 0.25);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+`;
