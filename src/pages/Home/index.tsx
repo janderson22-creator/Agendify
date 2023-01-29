@@ -15,8 +15,8 @@ const Home: React.FC = () => {
           <S.ProfileImage src={LogoExample} />
         </div>
 
-        <div className="flex items-center justify-between px-[20px] pt-[15px]">
-          <div className="flex flex-col items-center">
+        <div className="flex items-center justify-between px-[15px] lg:px-[20px] xl:px-[20px] pt-[20px] lg:pt-[15px] xl:pt-[15px]">
+          <div className="flex flex-col-reverse lg:flex-col xl:flex-col lg:items-center xl:items-center">
             <S.CommerceName>Janderson Costa Studio</S.CommerceName>
             <S.CommerceType>Barbearia & Chopperia</S.CommerceType>
           </div>
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
           </S.TimeOpen>
         </div>
 
-        <div className="px-[20px] mt-[30px] ml-[75px]">
+        <div className="px-[15px] lg:px-[20px] xl:px-[20px] mt-[20px] lg:mt-[30px] xl:mt-[30px] lg:ml-[75px] xl:ml-[75px]">
           <S.KnowMore onClick={() => setShowModal(true)}>Saiba mais</S.KnowMore>
         </div>
       </S.Header>

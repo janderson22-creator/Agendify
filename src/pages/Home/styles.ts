@@ -5,6 +5,7 @@ interface Props {
 }
 
 export const Container = styled.div``;
+
 export const Header = styled.div`
   box-shadow: 0px 0px 10.666666984558105px 1.7777777910232544px
     rgba(0, 0, 0, 0.1);
@@ -17,6 +18,10 @@ export const CoverImage = styled.img`
   max-height: 250px;
   object-fit: cover;
   opacity: 0.6;
+
+  @media (max-width: 1023px) {
+    max-height: 150px;
+  }
 `;
 
 export const ProfileImage = styled.img`
@@ -30,17 +35,34 @@ export const ProfileImage = styled.img`
   bottom: -50px;
   border: 5px solid white;
   object-fit: cover;
+
+  @media (max-width: 1023px) {
+    max-width: 100px;
+    max-height: 100px;
+    border: 3px solid white;
+    bottom: -25px;
+  }
 `;
 
 export const CommerceName = styled.p`
   font-size: 28px;
   font-weight: 700;
-  color: #0D0D0D;
+  color: #0d0d0d;
+
+  @media (max-width: 1023px) {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+  }
 `;
 export const CommerceType = styled.p`
   font-size: 16px;
   font-weight: 400;
-  color: #0D0D0D;
+  color: #0d0d0d;
+
+  @media (max-width: 1023px) {
+    font-size: 12px;
+  }
 `;
 
 export const TimeOpen = styled.div<Props>`
@@ -57,6 +79,12 @@ export const TimeOpen = styled.div<Props>`
   font-size: 14px;
   font-weight: 500;
   color: #5f5f61;
+
+  @media (max-width: 1023px) {
+    font-size: 10px;
+    padding: 3px 10px;
+    white-space: nowrap;
+  }
 `;
 
 export const Icon = styled.div<Props>`
@@ -65,6 +93,12 @@ export const Icon = styled.div<Props>`
   background: ${(props) => (props.open ? "rgba(37, 221, 55, 1)" : "#F0AFAF")};
   border-radius: 100%;
   margin-right: 51px;
+
+  @media (max-width: 1023px) {
+    width: 9px;
+    height: 9px;
+    margin-right: 10px;
+  }
 `;
 
 export const KnowMore = styled.span`
@@ -77,5 +111,10 @@ export const KnowMore = styled.span`
 
   font-size: 18px;
   font-weight: 500;
-  color: #0D0D0D;
+  color: #0d0d0d;
+  
+  @media (max-width: 1023px) {
+   padding: 4px 15px;
+   font-size: 12px;
+  }
 `;
