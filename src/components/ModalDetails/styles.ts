@@ -16,7 +16,8 @@ export const Overlay = styled.div`
 `;
 
 export const Container: any = styled.div`
-  height: 780px;
+  height: fit-content;
+  max-height: 780px;
   width: 550px;
   border-radius: 10px;
   margin: auto;
@@ -28,6 +29,7 @@ export const Container: any = styled.div`
   background-color: #fff;
   z-index: 15;
   padding-top: 20px;
+  padding-bottom: 100px;
 
   animation: toTop 0.3s linear;
   opacity: 1;
@@ -47,11 +49,12 @@ export const Container: any = styled.div`
   @media (max-width: 1023px) {
     width: 100%;
     top: unset;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 10px;
+    padding-bottom: 20px;
     border-radius: 10px 10px 0 0;
-    height: 330px;
+    height: fit-content;
     z-index: 30;
     transform: unset;
     visibility: unset;
@@ -62,7 +65,7 @@ export const Container: any = styled.div`
     @keyframes toTop {
       0%,
       50% {
-        bottom: -500px;
+        bottom: -700px;
       }
       100% {
         bottom: 0;
@@ -79,6 +82,10 @@ export const TextAboutUs = styled.p`
   padding-bottom: 10px;
   width: 50%;
   text-align: center;
+
+  @media (max-width: 1023px) {
+    font-size: 16px;
+  }
 `;
 
 export const TextSub = styled.p`
@@ -86,6 +93,10 @@ export const TextSub = styled.p`
   font-weight: 400;
   color: #778877;
   text-align: center;
+
+  @media (max-width: 1023px) {
+    font-size: 12px;
+  }
 `;
 
 export const ContainerCards = styled.div`
@@ -97,12 +108,27 @@ export const ContainerCards = styled.div`
     border: 1px solid black;
     visibility: hidden;
   }
+
+  @media (max-width: 1023px) {
+    padding-left: 15px;
+
+    .slick-next {
+      background: black;
+      border: 1px solid black;
+      visibility: hidden;
+    }
+  }
 `;
 export const Card = styled.img`
   max-width: 100px;
   min-width: 100px;
   margin-right: 10px;
   cursor: pointer;
+
+  @media (max-width: 1023px) {
+    max-width: 80px;
+    min-width: 80px;
+  }
 `;
 
 export const Shadow = styled.div`
@@ -133,12 +159,20 @@ export const LabelInformation = styled.p`
   font-size: 16px;
   font-weight: 500;
   color: #3f3f3f;
+
+  @media (max-width: 1023px) {
+    font-size: 14px;
+  }
 `;
 
 export const Subtitle = styled.p`
   font-size: 14px;
   font-weight: 400;
   color: #787878;
+
+  @media (max-width: 1023px) {
+    font-size: 12px;
+  }
 `;
 
 export const Icon = styled.div`
@@ -151,4 +185,9 @@ export const Icon = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 10px;
+
+  @media (max-width: 1023px) {
+    width: 34px;
+    height: 34px;
+  }
 `;

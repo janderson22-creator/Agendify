@@ -75,7 +75,7 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
     <>
       {show && <S.Overlay onClick={() => setShow(false)} />}
       <S.Container show={show}>
-        <div className="px-[30px]">
+        <div className="px-[10px] lg:px-[30px] xl:px-[30px]">
           <div
             onClick={() => setShow(false)}
             className="flex justify-end cursor-pointer"
