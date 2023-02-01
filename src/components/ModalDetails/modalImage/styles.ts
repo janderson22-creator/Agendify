@@ -45,12 +45,8 @@ export const Container: any = styled.div`
 
   @media (max-width: 1023px) {
     width: 100%;
-    top: unset;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 20px;
-    border-radius: 10px 10px 0 0;
-    height: 330px;
+    height: fit-content;
+    padding: 0 15px;
     z-index: 30;
     transform: unset;
     visibility: unset;
@@ -61,7 +57,7 @@ export const Container: any = styled.div`
     @keyframes toTop {
       0%,
       50% {
-        bottom: -500px;
+        bottom: -700px;
       }
       100% {
         bottom: 0;
@@ -74,4 +70,8 @@ export const Img = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+
+  @media (max-width: 1023px) {
+    object-fit: cover;
+  }
 `
