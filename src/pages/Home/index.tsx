@@ -2,6 +2,7 @@ import * as S from "./styles";
 import LogoExample from "../../assets/images/logoExample.png";
 import { useState } from "react";
 import DetailsMoldal from "../../components/ModalDetails";
+import CalendarCommerce from "../../components/Calendar";
 
 const Home: React.FC = () => {
   const [open, setOpen] = useState(true);
@@ -29,6 +30,20 @@ const Home: React.FC = () => {
           <S.KnowMore onClick={() => setShowModal(true)}>Saiba mais</S.KnowMore>
         </div>
       </S.Header>
+
+      <S.Services>
+        <S.TitleName>Serviços</S.TitleName>
+        <div className="flex items-center justify-between mt-4">
+          <S.Card>
+            <CalendarCommerce />
+          </S.Card>
+
+          <S.Card></S.Card>
+
+          <S.Card></S.Card>
+        </div>
+      </S.Services>
+
       {showModal && <DetailsMoldal show={showModal} setShow={setShowModal} />}
     </S.Container>
   );

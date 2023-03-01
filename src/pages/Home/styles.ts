@@ -45,7 +45,7 @@ export const ProfileImage = styled.img`
 `;
 
 export const CommerceName = styled.p`
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: #0d0d0d;
 
@@ -112,9 +112,38 @@ export const KnowMore = styled.span`
   font-size: 18px;
   font-weight: 500;
   color: #0d0d0d;
-  
+
   @media (max-width: 1023px) {
-   padding: 4px 15px;
-   font-size: 12px;
+    padding: 4px 15px;
+    font-size: 12px;
   }
 `;
+
+export const Services = styled.div`
+  box-shadow: 0px 0px 10.666666984558105px 1.7777777910232544px
+    rgba(0, 0, 0, 0.1);
+  border-radius: 17px;
+  margin-top: 20px;
+  padding: 20px;
+`;
+
+export const TitleName = styled.p`
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d0d0d;
+
+  @media (max-width: 1023px) {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+  }
+`;
+
+export const Card = styled.div`
+  border: 1px solid #D4D4DE;
+  border-radius: 8px;
+  padding-top: 15px;
+  width: 100%;
+  max-width: 350px;
+  height: 450px;
+`

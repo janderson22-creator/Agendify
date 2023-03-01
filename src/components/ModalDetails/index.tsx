@@ -4,7 +4,7 @@ import ImageAboutUs2 from "../../assets/images/aboutUs2.png";
 import ImageAboutUs3 from "../../assets/images/aboutUs3.png";
 import Slider from "react-slick";
 import * as S from "./styles";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowRightIcon } from "../../assets/icons/arrowRight";
 import { ArrowRightSlider } from "../../assets/icons/arrowRightSlider";
 import { WhatsappIcon } from "../../assets/icons/whatsappIcon";
@@ -70,6 +70,20 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
     },
     [setImageSelected, setShowImage]
   );
+
+  useEffect(() => {
+    const handleKeyDown = (event: any) => {
+      if (event.keyCode === 27) {
+        setShow(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <>
