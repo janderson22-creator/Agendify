@@ -9,12 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-calendar": "^3.9.0",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.10",
     "@types/styled-components": "^5.1.26",
     "@types/tailwindcss": "^3.1.0",
     "react": "^18.2.0",
+    "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-router": "6",
     "react-router-dom": "6",
