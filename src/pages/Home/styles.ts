@@ -138,12 +138,3 @@ export const TitleName = styled.p`
     text-align: left;
   }
 `;
-
-export const Card = styled.div`
-  border: 1px solid #D4D4DE;
-  border-radius: 8px;
-  padding-top: 15px;
-  width: 100%;
-  max-width: 350px;
-  height: 450px;
-`

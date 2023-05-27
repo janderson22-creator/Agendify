@@ -119,22 +119,11 @@ export const ContainerCards = styled.div`
     }
   }
 `;
-export const Card = styled.img`
-  max-width: 100px;
-  min-width: 100px;
-  margin-right: 10px;
-  cursor: pointer;
-
-  @media (max-width: 1023px) {
-    max-width: 80px;
-    min-width: 80px;
-  }
-`;
 
 export const Shadow = styled.div`
   background: linear-gradient(
     271.31deg,
-    #000000 -9.52%,
+    #000000 -59.52%,
     rgba(0, 0, 0, 0) 126.67%
   );
   position: absolute;
@@ -148,7 +137,7 @@ export const Shadow = styled.div`
 export const ArrowRight = styled.div`
   position: absolute;
   right: 20px;
-  top: 45px;
+  top: 35px;
   z-index: 2;
   ::before {
     display: none;

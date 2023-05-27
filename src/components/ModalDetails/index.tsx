@@ -1,7 +1,4 @@
 import { CloseIcon } from "../../assets/icons/closeIcon";
-import ImageAboutUs1 from "../../assets/images/aboutUs1.png";
-import ImageAboutUs2 from "../../assets/images/aboutUs2.png";
-import ImageAboutUs3 from "../../assets/images/aboutUs3.png";
 import Slider from "react-slick";
 import * as S from "./styles";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -21,30 +18,6 @@ interface Props {
 const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
   const [showImage, setShowImage] = useState(false);
   const [imageSelected, setImageSelected] = useState<any>();
-  const images = useMemo(
-    () => [
-      {
-        image: ImageAboutUs1,
-      },
-      {
-        image: ImageAboutUs2,
-      },
-      {
-        image: ImageAboutUs3,
-      },
-      {
-        image: ImageAboutUs1,
-      },
-      {
-        image: ImageAboutUs2,
-      },
-      {
-        image: ImageAboutUs3,
-      },
-    ],
-    []
-  );
-
   const icons = useMemo(
     () => [
       {
@@ -111,11 +84,12 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
 
         <S.ContainerCards>
           <Slider {...settings}>
-            {images.map((item, index) => (
-              <S.Card
-                onClick={() => clickImage(item.image)}
+            {[1, 2, 3, 4].map((item, index) => (
+              <img
+                className="min-w-[75px] min-h-[75px] max-w-[80px] max-h-[80px] mr-3 rounded-[10px]"
+                onClick={() => clickImage("https://picsum.photos/200/300")}
                 key={index}
-                src={item.image}
+                src="https://picsum.photos/200/300"
               />
             ))}
           </Slider>
