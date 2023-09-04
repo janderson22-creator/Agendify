@@ -11,7 +11,7 @@ import * as S from "./styles";
 
 const Menu: React.FC = () => {
   const [currentItem, setCurrentItem] = useState("Inicio");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const { commerceId } = useCommerce();
 
   const items = useMemo(
