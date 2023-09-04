@@ -12,7 +12,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0 auto;
-
+    background:  #373740;
     @media (max-width: 1023px) {
       max-width: 100%;
       width: 100%;
