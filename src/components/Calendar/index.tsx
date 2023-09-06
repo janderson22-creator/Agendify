@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./CalendarComponent.css";
+import { useCommerce } from "../../context/commerce";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -20,12 +21,7 @@ const formatDateObject = (date: Date) => {
 
 const CalendarComponent: React.FC = () => {
   const [value, setValue] = useState<Value>(new Date());
-  const [formattedDate, setFormattedDate] = useState({
-    dayOnWeek: "",
-    month: "",
-    day: "",
-    year: "",
-  });
+  const {setFormattedDate } = useCommerce();
 
   useEffect(() => {
     if (value instanceof Date) {
