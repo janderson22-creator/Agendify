@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CalendarComponent from "../../components/Calendar";
 import { useCommerce } from "../../context/commerce";
 import classNames from "../../utils/className";
+import ToSchedule from "../../components/ModalToSchedule";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
+  const [showToSchedule, setShowToSchedule] = useState(false)
 
   useEffect(() => {
     setFormattedDate({
@@ -47,8 +49,9 @@ const Schedules: React.FC = () => {
             ))}
           </div>
 
-          <div className="flex mt-4">
+          <div className="flex flex-col items-center mt-4">
             <button
+              onClick={() => setShowToSchedule(true)}
               disabled={formattedDate && formattedDate.day === ""}
               className={classNames(
                 "text-[22px] font-bold rounded-[10px] w-full flex items-center justify-center py-2",
@@ -57,11 +60,12 @@ const Schedules: React.FC = () => {
                   : "cursor-pointer bg-[#FB646B] text-[#FFF]"
               )}
             >
-              AGENDAR
+             {formattedDate && formattedDate.day === "" ? "ESCOLHA UMA DATA" : "AGENDAR"}
             </button>
           </div>
         </div>
       </div>
+      {showToSchedule && <ToSchedule show={showToSchedule} setShow={setShowToSchedule} />}
     </div>
   );
 };

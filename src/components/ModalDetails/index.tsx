@@ -1,4 +1,4 @@
-import { CloseIcon } from "../../assets/icons/closeIcon";
+import CloseIcon from "../../assets/icons/closeIcon.svg";
 import Slider from "react-slick";
 import * as S from "./styles";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -67,7 +67,7 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
             onClick={() => setShow(false)}
             className="flex justify-end cursor-pointer"
           >
-            <CloseIcon />
+            <img src={CloseIcon} alt="" />
           </div>
           <div className="flex items-center justify-center mt-2">
             <S.TextAboutUs>Sobre nós</S.TextAboutUs>
