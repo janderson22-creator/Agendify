@@ -28,7 +28,7 @@ export const Container: any = styled.div`
   right: 0;
   background-color: #171821;
   z-index: 15;
-  padding: 50px 30px;
+  padding: 30px 30px;
 
   animation: toTop 0.3s linear;
   opacity: 1;
