@@ -3,10 +3,11 @@ import CalendarComponent from "../../components/Calendar";
 import { useCommerce } from "../../context/commerce";
 import classNames from "../../utils/className";
 import ToSchedule from "../../components/ModalToSchedule";
+import Button from "../../components/Base/button";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
-  const [showToSchedule, setShowToSchedule] = useState(false)
+  const [showToSchedule, setShowToSchedule] = useState(false);
 
   useEffect(() => {
     setFormattedDate({
@@ -50,22 +51,23 @@ const Schedules: React.FC = () => {
           </div>
 
           <div className="flex flex-col items-center mt-4">
-            <button
-              onClick={() => setShowToSchedule(true)}
-              disabled={formattedDate && formattedDate.day === ""}
-              className={classNames(
-                "text-[22px] font-bold rounded-[10px] w-full flex items-center justify-center py-2",
-                formattedDate && formattedDate.day === ""
-                  ? "cursor-not-allowed bg-[#fb646b8d] text-[#ffffff7a]"
-                  : "cursor-pointer bg-[#FB646B] text-[#FFF]"
-              )}
-            >
-             {formattedDate && formattedDate.day === "" ? "ESCOLHA UMA DATA" : "AGENDAR"}
-            </button>
+              <Button
+                onClick={() => setShowToSchedule(true)}
+                disabled={
+                  formattedDate && formattedDate.day === "" ? true : false
+                }
+                text={
+                  formattedDate && formattedDate.day === ""
+                    ? "ESCOLHA UMA DATA"
+                    : "AGENDAR"
+                }
+              />
           </div>
         </div>
       </div>
-      {showToSchedule && <ToSchedule show={showToSchedule} setShow={setShowToSchedule} />}
+      {showToSchedule && (
+        <ToSchedule show={showToSchedule} setShow={setShowToSchedule} />
+      )}
     </div>
   );
 };
