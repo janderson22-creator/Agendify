@@ -31,7 +31,7 @@ const Schedules: React.FC = () => {
 
       <div className="flex h-fit w-full rounded-[10px] bg-[#8593A6] py-5 px-4 mt-[30px]">
         <div>
-          <CalendarComponent />
+          <CalendarComponent  />
         </div>
         <div className="flex flex-col justify-between">
           <div className="flex ml-4 pt-3">

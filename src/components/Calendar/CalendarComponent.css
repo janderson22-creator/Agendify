@@ -86,3 +86,7 @@
   background: #f1f1f1;
   border-radius: 10px;
 }
+
+.react-calendar__tile:disabled {
+  background-color: rgba(255, 0, 0, 0.322);
+}
