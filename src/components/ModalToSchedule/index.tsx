@@ -113,7 +113,7 @@ const ToSchedule: React.FC<Props> = ({ show, setShow }) => {
           <div className="flex items-center justify-between mt-7">
             <div className="w-full">
               <Input
-                label="Descrição"
+                label="Observação"
                 value={form.description}
                 onChange={(e) =>
                   setForm({ ...form, description: e.target.value })

@@ -51,7 +51,7 @@ const Schedules: React.FC = () => {
           </div>
 
           <div className="flex flex-col items-center mt-4">
-              <Button
+            <Button
                 onClick={() => setShowToSchedule(true)}
                 disabled={
                   formattedDate && formattedDate.day === "" ? true : false
@@ -61,7 +61,7 @@ const Schedules: React.FC = () => {
                     ? "ESCOLHA UMA DATA"
                     : "AGENDAR"
                 }
-              />
+            />
           </div>
         </div>
       </div>
