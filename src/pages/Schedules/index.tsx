@@ -4,10 +4,12 @@ import ModalEmployees from "../../components/modals/ModalEmployees";
 import DatePicker from "../../components/CalendarInput";
 import Employees from "../../components/Empoyees";
 import classNames from "../../utils/className";
+import Tooltip from "../../components/Base/Tooltip";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
   const [showEmployeersModal, setShowEmployeersModal] = useState(false);
+  const [hoverTooltip, setHoverTooltip] = useState(false);
 
   useEffect(() => {
     setFormattedDate({
@@ -43,12 +45,21 @@ const Schedules: React.FC = () => {
         </div>
 
         <div
-          className={classNames(
-            "mt-6",
-            dateSelected ? "opacity-100" : "opacity-20 pointer-events-none cursor-not-allowed"
-          )}
+          onMouseEnter={() => setHoverTooltip(true)}
+          onMouseLeave={() => setHoverTooltip(false)}
+          className="relative w-full"
         >
-          <Employees />
+          <div
+            className={classNames(
+              "mt-6 w-full",
+              dateSelected
+                ? "opacity-100"
+                : "opacity-20 pointer-events-none cursor-not-allowed"
+            )}
+          >
+            <Employees />
+          </div>
+          {hoverTooltip && !dateSelected && <Tooltip />}
         </div>
       </div>
       {showEmployeersModal && (

@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useCommerce } from "../../context/commerce";
 
 const Employees: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
 
   return (
-    <div className="flex flex-col justify-around">
+    <div className="w-full flex flex-col justify-around">
       <div className="flex items-center mt-4 pl-3 bg-[#F0F0F5] py-4 rounded-t-[10px]">
         {tableHead.map((item, index) => (
           <span
