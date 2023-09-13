@@ -1,13 +1,13 @@
-import CloseIcon from "../../assets/icons/closeIcon.svg";
+import CloseIcon from "../../../assets/icons/closeIcon.svg";
 import Slider from "react-slick";
 import * as S from "./styles";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ArrowRightIcon } from "../../assets/icons/arrowRight";
-import { ArrowRightSlider } from "../../assets/icons/arrowRightSlider";
-import { WhatsappIcon } from "../../assets/icons/whatsappIcon";
-import { EmailIcon } from "../../assets/icons/emailIcon";
-import { InstagramIcon } from "../../assets/icons/instagramIcon";
-import { PhoneIcon } from "../../assets/icons/phoneIcon";
+import { ArrowRightIcon } from "../../../assets/icons/arrowRight";
+import { ArrowRightSlider } from "../../../assets/icons/arrowRightSlider";
+import { WhatsappIcon } from "../../../assets/icons/whatsappIcon";
+import { EmailIcon } from "../../../assets/icons/emailIcon";
+import { InstagramIcon } from "../../../assets/icons/instagramIcon";
+import { PhoneIcon } from "../../../assets/icons/phoneIcon";
 import ModalImage from "./modalImage";
 
 interface Props {

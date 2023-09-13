@@ -3,9 +3,9 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 export type ContextValue = {
   commerceId: string;
   setCommerceId: React.Dispatch<React.SetStateAction<string>>;
-  formattedDate: CommerceSchedulesProps | undefined;
+  formattedDate: CommerceSchedulesProps;
   setFormattedDate: React.Dispatch<
-    React.SetStateAction<CommerceSchedulesProps | undefined>
+    React.SetStateAction<CommerceSchedulesProps>
   >;
 };
 
@@ -18,7 +18,13 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   ...rest
 }) => {
   const [commerceId, setCommerceId] = useState(location.pathname.split("/")[2]);
-  const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>();
+  const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
+    dayOnWeek: "",
+    month: "",
+    day: "",
+    year: "",
+    name_employee: "",
+  });
 
   const value = useMemo(
     () => ({
@@ -59,4 +65,5 @@ interface CommerceSchedulesProps {
   month: string;
   day: string;
   year: string;
+  name_employee: string;
 }

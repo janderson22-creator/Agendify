@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import CloseIcon from "../../assets/icons/closeIcon.svg";
-import ArrowBottom from "../../assets/icons/arrow-bottom.svg";
-import { useCommerce } from "../../context/commerce";
-import formatMonth from "../../utils/formatMonths";
+import CloseIcon from "../../../assets/icons/closeIcon.svg";
+import ArrowBottom from "../../../assets/icons/arrow-bottom.svg";
+import { useCommerce } from "../../../context/commerce";
+import formatMonth from "../../../utils/formatMonths";
 import * as S from "./styles";
-import Input from "../Base/input";
-import classNames from "../../utils/className";
-import Button from "../Base/button";
+import Input from "../../Base/input";
+import classNames from "../../../utils/className";
+import Button from "../../Base/button";
 import { Form } from "react-router-dom";
 
 interface Props {
@@ -113,7 +113,7 @@ const ToSchedule: React.FC<Props> = ({ show, setShow }) => {
           <div className="flex items-center justify-between mt-7">
             <div className="w-full">
               <Input
-                label="Descrição"
+                label="Observação"
                 value={form.description}
                 onChange={(e) =>
                   setForm({ ...form, description: e.target.value })

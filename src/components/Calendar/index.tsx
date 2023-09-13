@@ -19,9 +19,15 @@ const formatDateObject = (date: Date) => {
   return { dayOnWeek, month, day, year };
 };
 
+const isDateDisabled = (date: Date) => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return date < today;
+};
+
 const CalendarComponent: React.FC = () => {
   const [value, setValue] = useState<Value>(new Date());
-  const {setFormattedDate } = useCommerce();
+  const { setFormattedDate } = useCommerce();
 
   useEffect(() => {
     if (value instanceof Date) {
@@ -32,7 +38,11 @@ const CalendarComponent: React.FC = () => {
 
   return (
     <div className="w-full h-full rounded-[20px] relative">
-      <Calendar onChange={setValue} value={value} />
+      <Calendar
+        onChange={setValue}
+        value={value}
+        tileDisabled={({ date }) => isDateDisabled(date)}
+      />
     </div>
   );
 };

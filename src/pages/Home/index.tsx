@@ -4,7 +4,7 @@ import CalendarIcon from "../../assets/icons/calendar-home.svg";
 import ServiceIcon from "../../assets/icons/service.svg";
 import ShopIcon from "../../assets/icons/shop.svg";
 import { useMemo, useState } from "react";
-import DetailsMoldal from "../../components/ModalDetails";
+import DetailsMoldal from "../../components/modals/ModalDetails";
 import { useCommerce } from "../../context/commerce";
 import { Link } from "react-router-dom";
 
@@ -61,7 +61,7 @@ const Home: React.FC = () => {
 
       <S.Services>
         <S.TitleName>O que procura?</S.TitleName>
-        <div className="flex items-center justify-between items-center justify-between mt-8 py-5 gap-4">
+        <div className="flex items-center justify-between mt-8 py-5 gap-4">
           {listItems.map((i, index) => (
             <Link
               to={i.link}
