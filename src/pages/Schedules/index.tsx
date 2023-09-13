@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import CalendarComponent from "../../components/Calendar";
+import { useEffect, useMemo, useState } from "react";
 import { useCommerce } from "../../context/commerce";
+import ModalEmployees from "../../components/modals/ModalEmployees";
+import DatePicker from "../../components/CalendarInput";
+import Employees from "../../components/Empoyees";
 import classNames from "../../utils/className";
-import ToSchedule from "../../components/ModalToSchedule";
-import Button from "../../components/Base/button";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
-  const [showToSchedule, setShowToSchedule] = useState(false);
+  const [showEmployeersModal, setShowEmployeersModal] = useState(false);
 
   useEffect(() => {
     setFormattedDate({
@@ -15,58 +15,47 @@ const Schedules: React.FC = () => {
       month: "",
       day: "",
       year: "",
+      name_employee: "",
     });
   }, []);
 
+  const dateSelected = useMemo(() => {
+    if (
+      !formattedDate.day ||
+      !formattedDate.dayOnWeek ||
+      !formattedDate.month ||
+      !formattedDate.year
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }, [formattedDate]);
+
   return (
-    <div className="pt-[60px]">
-      <span className="text-[#FFF] text-[36px] font-bold">
-        Janderson Costa Studio
-      </span>
-      <div className="w-full rounded-[10px] bg-[#8593A6] py-5 px-[72px] mt-[30px]">
-        <p className="text-[#FFF] text-[30px] font-semibold">
-          Selecione uma data e hora
-        </p>
-      </div>
-
-      <div className="flex h-fit w-full rounded-[10px] bg-[#8593A6] py-5 px-4 mt-[30px]">
+    <div className="w-full pt-[60px]">
+      <div className="flex flex-col h-fit w-full rounded-[10px] py-5 px-4 mt-[30px]">
         <div>
-          <CalendarComponent  />
+          <label className="text-[#5C6666] text-[18px] font-semibold mr-4">
+            Selecione a data que deseja o serviço:
+          </label>
+          <DatePicker />
         </div>
-        <div className="flex flex-col justify-between">
-          <div className="flex ml-4 pt-3">
-            {options.map((item, index) => (
-              <div
-                className="flex items-center mr-4 last-of-type:mr-0"
-                key={index}
-              >
-                <div
-                  className="w-[10px] h-[10px] rounded-full mr-2"
-                  style={{ background: item.color }}
-                />
 
-                <span style={{ color: item.color }}>{item.title}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex flex-col items-center mt-4">
-            <Button
-                onClick={() => setShowToSchedule(true)}
-                disabled={
-                  formattedDate && formattedDate.day === "" ? true : false
-                }
-                text={
-                  formattedDate && formattedDate.day === ""
-                    ? "ESCOLHA UMA DATA"
-                    : "AGENDAR"
-                }
-            />
-          </div>
+        <div
+          className={classNames(
+            "mt-6",
+            dateSelected ? "opacity-100" : "opacity-20 pointer-events-none cursor-not-allowed"
+          )}
+        >
+          <Employees />
         </div>
       </div>
-      {showToSchedule && (
-        <ToSchedule show={showToSchedule} setShow={setShowToSchedule} />
+      {showEmployeersModal && (
+        <ModalEmployees
+          show={showEmployeersModal}
+          setShow={setShowEmployeersModal}
+        />
       )}
     </div>
   );

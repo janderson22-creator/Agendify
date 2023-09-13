@@ -15,7 +15,7 @@ const Button: React.FC<Props> = ({disabled, text, onClick}) => {
         "text-[22px] font-bold rounded-[10px] w-full flex items-center justify-center py-2",
         disabled
           ? "cursor-not-allowed bg-[#fb646b8d] text-[#ffffff7a]"
-          : "cursor-pointer bg-[#FB646B] text-[#FFF]"
+          : "cursor-pointer bg-[#25DD37] text-[#FFF]"
       )}
     >
       {text}
