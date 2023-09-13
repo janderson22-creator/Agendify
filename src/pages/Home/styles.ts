@@ -4,7 +4,10 @@ interface Props {
   open?: boolean;
 }
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  width: 100%;
+  padding: 0 20px;
+`;
 
 export const Header = styled.div`
   box-shadow: 0px 0px 10.666666984558105px 1.7777777910232544px
