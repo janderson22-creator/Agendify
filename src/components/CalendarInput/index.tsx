@@ -7,30 +7,38 @@ const DatePicker: React.FC = () => {
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
-    const currentDate = new Date().toISOString().split("T")[0];
+    const dateParts = selectedDate.split("-");
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
 
-    const dateObject = new Date(selectedDate);
+    const dayOnWeek = getDayOfWeek(year, month, day);
+    const monthName = getMonthName(parseInt(dateParts[1], 10));
 
-    if (selectedDate >= currentDate) {
-      setSelectedDate(selectedDate);
+    setFormattedDate((prevState) => ({
+      ...prevState,
+      day,
+      dayOnWeek,
+      month: monthName,
+      year,
+    }));
 
-      const dayOnWeek = dateObject.toLocaleDateString("pt-br", {
-        weekday: "long",
-      });
-      const month = dateObject.toLocaleDateString("pt-br", { month: "long" });
-      const day = dateObject.toLocaleDateString("pt-br", { day: "numeric" });
-      const year = dateObject.toLocaleDateString("pt-br", { year: "numeric" });
+    setSelectedDate(selectedDate);
+  };
 
-      setFormattedDate((prevFormattedDate) => ({
-        ...prevFormattedDate,
-        dayOnWeek,
-        month,
-        day,
-        year,
-      }));
-    } else {
-      alert("Não é possível selecionar uma data anterior à data atual.");
-    }
+  const getDayOfWeek = (year: string, month: string, day: string) => {
+    const date = new Date(`${year}-${month}-${day}`);
+    const dayIndex = date.getDay();
+    const dayNames = [
+      "domingo",
+      "segunda-feira",
+      "terça-feira",
+      "quarta-feira",
+      "quinta-feira",
+      "sexta-feira",
+      "sábado",
+    ];
+    return dayNames[dayIndex + 1];
   };
 
   return (
@@ -44,3 +52,22 @@ const DatePicker: React.FC = () => {
 };
 
 export default DatePicker;
+
+const getMonthName = (monthNumber: number) => {
+  const monthNames = [
+    "janeiro",
+    "fevereiro",
+    "março",
+    "abril",
+    "maio",
+    "junho",
+    "julho",
+    "agosto",
+    "setembro",
+    "outubro",
+    "novembro",
+    "dezembro",
+  ];
+
+  return monthNames[monthNumber - 1];
+};

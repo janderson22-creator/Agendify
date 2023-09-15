@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <div className="flex h-screen">
         <Menu />
         <Global />
-        <div className="w-full max-w-[100%] lg:max-w-[1280px] xl:max-w-[1280px] px-[15px] lg:px-[60px] xl:px-[60px] mx-auto">
+        <div className="w-full px-5 lg:px-0 lg:pl-5">
           <RoutesMain />
         </div>
       </div>
