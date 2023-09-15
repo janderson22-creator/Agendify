@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useCommerce } from "../../context/commerce";
+import classNames from "../../utils/className";
 
 const Employees: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
@@ -28,7 +28,7 @@ const Employees: React.FC = () => {
               }))
             }
             key={index}
-            className="border-b border-l border-r border-[#EBEBF0] flex items-center text-[#141616] font-semibold py-4 hover:bg-[#eeebf54d] cursor-pointer"
+            className={classNames('border-b border-l border-r border-[#EBEBF0] flex items-center text-[#141616] font-semibold py-4 cursor-pointer', employeer.name === formattedDate.name_employee ? 'bg-[#25DD3733]' : 'hover:bg-[#eeebf54d]')}
           >
             <span className="w-[12%] pl-3">{index + 1}</span>
             <div className="w-[22%]">
