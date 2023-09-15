@@ -60,12 +60,19 @@ const Schedules: React.FC = () => {
           >
             <Employees />
           </div>
-          {hoverTooltip && !dateSelected && <Tooltip />}
+          {hoverTooltip && !dateSelected && (
+            <Tooltip message={"Selecione a data que deseja o atendimento"} />
+          )}
+          {hoverTooltip && dateSelected && !formattedDate.name_employee && (
+            <Tooltip
+              message={"Selecione o profissinal que deseja o atendimento"}
+            />
+          )}
         </div>
 
         <div
           className={classNames(
-            "flex items-center mt-10",
+            "relative flex items-center mt-10",
             formattedDate?.name_employee
               ? "opacity-100"
               : "opacity-20 pointer-events-none cursor-not-allowed"
