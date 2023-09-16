@@ -38,7 +38,7 @@ const DatePicker: React.FC = () => {
       "sexta-feira",
       "sábado",
     ];
-    return dayNames[dayIndex + 1];
+    return dayNames[dayIndex === 6 ? 0 : dayIndex + 1]
   };
 
   return (
