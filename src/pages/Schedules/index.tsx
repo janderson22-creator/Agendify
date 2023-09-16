@@ -1,16 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import CalendarIcon from "../../assets/icons/calendar-icon.svg";
 import { useCommerce } from "../../context/commerce";
-import ModalEmployees from "../../components/modals/ModalEmployees";
 import DatePicker from "../../components/CalendarInput";
 import Employees from "../../components/Empoyees";
 import classNames from "../../utils/className";
 import Tooltip from "../../components/Base/tooltip";
 import InputSearch from "../../components/Base/input-search";
+import ToSchedule from "../../components/modals/ModalToSchedule";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
-  const [showEmployeersModal, setShowEmployeersModal] = useState(false);
+  const [show, setShow] = useState(false);
   const [hoverTooltip, setHoverTooltip] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -66,11 +66,14 @@ const Schedules: React.FC = () => {
           {hoverTooltip && !dateSelected && (
             <Tooltip message={"Selecione a data que deseja o atendimento"} />
           )}
-          {hoverTooltip && dateSelected && !formattedDate.name_employee && searchValue === "" && (
-            <Tooltip
-              message={"Selecione o profissinal que deseja o atendimento"}
-            />
-          )}
+          {hoverTooltip &&
+            dateSelected &&
+            !formattedDate.name_employee &&
+            searchValue === "" && (
+              <Tooltip
+                message={"Selecione o profissinal que deseja o atendimento"}
+              />
+            )}
         </div>
 
         <div
@@ -99,15 +102,12 @@ const Schedules: React.FC = () => {
             </span>
             <p className="text-xs mt-2">Data</p>
           </div>
+        </div>
 
+        <div className="mt-14">
+          <ToSchedule />
         </div>
       </div>
-      {showEmployeersModal && (
-        <ModalEmployees
-          show={showEmployeersModal}
-          setShow={setShowEmployeersModal}
-        />
-      )}
     </div>
   );
 };

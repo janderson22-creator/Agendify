@@ -2,43 +2,21 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import CloseIcon from "../../../assets/icons/closeIcon.svg";
 import ArrowBottom from "../../../assets/icons/arrow-bottom.svg";
 import { useCommerce } from "../../../context/commerce";
-import formatMonth from "../../../utils/formatMonths";
 import * as S from "./styles";
 import Input from "../../Base/input";
 import classNames from "../../../utils/className";
 import Button from "../../Base/button";
 import { Form } from "react-router-dom";
 
-interface Props {
-  show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ToSchedule: React.FC<Props> = ({ show, setShow }) => {
-  const { formattedDate } = useCommerce();
+const ToSchedule: React.FC = () => {
   const [showTimes, setShowTimes] = useState(false);
   const [form, setForm] = useState<Form>({
-    name: '',
-    description: '',
-    price: '',
-    phone_number: '',
-    time: 'HORÁRIO',
+    name: "",
+    description: "",
+    price: "",
+    phone_number: "",
+    time: "HORÁRIO",
   });
-  
-
-  useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      if (event.keyCode === 27) {
-        setShow(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   const availableTime = useMemo(() => {
     return (
@@ -68,112 +46,95 @@ const ToSchedule: React.FC<Props> = ({ show, setShow }) => {
     );
   }, [form]);
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
 
-    if (isFormEmpty) {
-      alert(
-        "Por favor, preencha todos os campos antes de enviar o formulário."
-      );
-    } else {
-    }
-  }, [isFormEmpty]);
+      if (isFormEmpty) {
+        alert(
+          "Por favor, preencha todos os campos antes de enviar o formulário."
+        );
+      } else {
+      }
+    },
+    [isFormEmpty]
+  );
 
   return (
-    <>
-      {show && <S.Overlay onClick={() => setShow(false)} />}
-      <S.Container show={show}>
-        <div className="flex justify-between">
-          <div className="flex items-center">
-            <span className="text-[151px] text-[#FB646B] font-bold">
-              {formattedDate?.day.slice(0, -1)}
-            </span>
-
-            <div className="text-[40px] text-[#FFF] font-bold ml-4">
-              <p>de</p>
-              <span>{formatMonth(formattedDate?.month || "")}</span>
-            </div>
-          </div>
-
-          <div className="cursor-pointer" onClick={() => setShow(false)}>
-            <img className="w-[40px] h-[40px]" src={CloseIcon} alt="" />
-          </div>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Input
+            label="Seu nome"
+            maxLength={30}
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div>
+        <div className="flex items-center justify-between mt-7">
+          <div className="w-full">
             <Input
-              label="Seu nome"
-              maxLength={30}
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              label="Observação"
+              value={form.description}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </div>
 
-          <div className="flex items-center justify-between mt-7">
-            <div className="w-full">
-              <Input
-                label="Observação"
-                value={form.description}
-                onChange={(e) =>
-                  setForm({ ...form, description: e.target.value })
-                }
-              />
-            </div>
-
+          <div
+            className={classNames(
+              "relative w-[160px] bg-[#FB646B] ml-5 py-4 cursor-pointer",
+              showTimes ? "rounded-t-[10px]" : "rounded-[10px]"
+            )}
+          >
             <div
-              className={classNames(
-                "relative w-[160px] bg-[#FB646B] ml-5 py-4 cursor-pointer",
-                showTimes ? "rounded-t-[10px]" : "rounded-[10px]"
-              )}
+              className="flex items-center justify-between pl-2 pr-4"
+              onClick={() => setShowTimes(!showTimes)}
             >
-              <div
-                className="flex items-center justify-between pl-2 pr-4"
-                onClick={() => setShowTimes(!showTimes)}
+              <p
+                className={classNames(
+                  "text-xl font-normal text-[#FFF]",
+                  form.time === "HORÁRIO" ? "opacity-50" : "opacity-100"
+                )}
               >
-                <p
-                  className={classNames(
-                    "text-xl font-normal text-[#FFF]",
-                    form.time === 'HORÁRIO' ? "opacity-50" : "opacity-100"
-                  )}
-                >
-                 {form.time}
-                </p>
-                <img className="ml-2" src={ArrowBottom} alt="arrow-schedules" />
-              </div>
-              {showTimes && availableTime}
+                {form.time}
+              </p>
+              <img className="ml-2" src={ArrowBottom} alt="arrow-schedules" />
             </div>
+            {showTimes && availableTime}
           </div>
-
-          <div className="flex items-center mt-7">
-            <div className="w-3/12">
-              <Input
-                label="Preço"
-                value={form.price}
-                onChange={(e) => setForm({ ...form, price: e.target.value })}
-              />
-            </div>
-            <div className="w-9/12 ml-5">
-              <Input
-                label="Celular"
-                value={form.phone_number}
-                onChange={(e) =>
-                  setForm({ ...form, phone_number: e.target.value })
-                }
-              />
-            </div>
-          </div>
-        </form>
-
-        <div className="w-6/12 mx-auto mt-8">
-          <Button
-            onClick={() => setShow(false)}
-            disabled={isFormEmpty}
-            text={isFormEmpty ? "PREENCHA TODOS OS ESPAÇOS" : "AGENDAR"}
-          />
         </div>
-      </S.Container>
-    </>
+
+        <div className="flex items-center mt-7">
+          <div className="w-3/12">
+            <Input
+              label="Preço"
+              value={form.price}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
+            />
+          </div>
+          <div className="w-9/12 ml-5">
+            <Input
+              label="Celular"
+              value={form.phone_number}
+              onChange={(e) =>
+                setForm({ ...form, phone_number: e.target.value })
+              }
+            />
+          </div>
+        </div>
+      </form>
+
+      <div className="w-6/12 mx-auto mt-8">
+        <Button
+          onClick={() => console.log("teste")}
+          disabled={isFormEmpty}
+          text={isFormEmpty ? "PREENCHA TODOS OS ESPAÇOS" : "AGENDAR"}
+        />
+      </div>
+    </div>
   );
 };
 
