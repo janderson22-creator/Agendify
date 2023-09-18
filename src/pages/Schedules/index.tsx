@@ -10,7 +10,6 @@ import ToSchedule from "../../components/ToSchedule";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
-  const [show, setShow] = useState(false);
   const [hoverTooltip, setHoverTooltip] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
@@ -21,6 +20,11 @@ const Schedules: React.FC = () => {
       day: "",
       year: "",
       name_employee: "",
+      name_user: "",
+      description: "",
+      phone_number: "",
+      service: "SERVIÇO",
+      time: "HORÁRIO",
     });
   }, []);
 
@@ -35,6 +39,10 @@ const Schedules: React.FC = () => {
     } else {
       return true;
     }
+  }, [formattedDate]);
+
+  useEffect(() => {
+    console.log(formattedDate);
   }, [formattedDate]);
 
   return (

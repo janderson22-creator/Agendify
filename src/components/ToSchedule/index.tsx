@@ -4,17 +4,12 @@ import Input from "../Base/input";
 import classNames from "../../utils/className";
 import Button from "../Base/button";
 import InputMask from "react-input-mask";
+import { useCommerce } from "../../context/commerce";
 
 const ToSchedule: React.FC = () => {
   const [showTimes, setShowTimes] = useState(false);
+  const { formattedDate, setFormattedDate } = useCommerce();
   const [showServices, setShowServices] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-    phone_number: "",
-    service: "SERVIÇO",
-    time: "HORÁRIO",
-  });
 
   const availableTime = useMemo(() => {
     return (
@@ -25,7 +20,7 @@ const ToSchedule: React.FC = () => {
         {times.map((time, index) => (
           <div
             onClick={() => {
-              setForm({ ...form, time: time.time });
+              setFormattedDate((prevState) => ({...prevState, time: time.time}));
               setShowTimes(false);
             }}
             key={index}
@@ -36,7 +31,7 @@ const ToSchedule: React.FC = () => {
         ))}
       </div>
     );
-  }, [form]);
+  }, [setFormattedDate]);
   
   const availableServices = useMemo(() => {
     return (
@@ -47,7 +42,7 @@ const ToSchedule: React.FC = () => {
         {services.map((service, index) => (
           <div
             onClick={() => {
-              setForm({ ...form, service: service.service });
+              setFormattedDate((prevState) => ({...prevState, service: service.service}));
               setShowServices(false);
             }}
             key={index}
@@ -58,13 +53,13 @@ const ToSchedule: React.FC = () => {
         ))}
       </div>
     );
-  }, [form]);
+  }, [setFormattedDate]);
 
   const isFormEmpty = useMemo(() => {
-    return Object.values(form).some(
+    return Object.values(formattedDate).some(
       (value) => value === "" || value === "HORÁRIO" || value === "SERVIÇO"
     );
-  }, [form]);
+  }, [formattedDate]);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -87,8 +82,8 @@ const ToSchedule: React.FC = () => {
           <Input
             label="Seu nome"
             maxLength={30}
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={formattedDate.name_user}
+            onChange={(e) => setFormattedDate({ ...formattedDate, name_user: e.target.value })}
           />
         </div>
 
@@ -96,9 +91,9 @@ const ToSchedule: React.FC = () => {
           <div className="w-full">
             <Input
               label="Observação"
-              value={form.description}
+              value={formattedDate.description}
               onChange={(e) =>
-                setForm({ ...form, description: e.target.value })
+                setFormattedDate({ ...formattedDate, description: e.target.value })
               }
             />
           </div>
@@ -109,9 +104,9 @@ const ToSchedule: React.FC = () => {
                 Celular
               </p>
               <InputMask
-                value={form.phone_number}
+                value={formattedDate.phone_number}
                 onChange={(e) =>
-                  setForm({ ...form, phone_number: e.target.value })
+                  setFormattedDate({ ...formattedDate, phone_number: e.target.value })
                 }
                 className="w-full py-4 rounded-[10px] border border-[#EBEBF0] bg-transparent px-5 text-sm text-[#5C6666] font-semibold"
                 type="text"
@@ -127,7 +122,7 @@ const ToSchedule: React.FC = () => {
             className={classNames(
               "relative w-[500px] py-4 cursor-pointer",
               showServices ? "rounded-t-[10px]" : "rounded-[10px]",
-              form.service === "SERVIÇO"
+              formattedDate.service === "SERVIÇO"
                 ? "text-[#000] bg-[#F0F0F5]"
                 : "bg-[#25DD3733]"
             )}
@@ -139,10 +134,10 @@ const ToSchedule: React.FC = () => {
               <p
                 className={classNames(
                   "text-xl font-semibold text-[#000]",
-                  form.service === "SERVIÇO" ? "opacity-40" : "opacity-100"
+                  formattedDate.service === "SERVIÇO" ? "opacity-40" : "opacity-100"
                 )}
               >
-                {form.service}
+                {formattedDate.service}
               </p>
               <img className="ml-2" src={ArrowBottom} alt="arrow-schedules" />
             </div>
@@ -153,7 +148,7 @@ const ToSchedule: React.FC = () => {
             className={classNames(
               "relative w-[160px] ml-5 py-4 cursor-pointer",
               showTimes ? "rounded-t-[10px]" : "rounded-[10px]",
-              form.time === "HORÁRIO"
+              formattedDate.time === "HORÁRIO"
                 ? "text-[#000] bg-[#F0F0F5]"
                 : "bg-[#25DD3733]"
             )}
@@ -165,10 +160,10 @@ const ToSchedule: React.FC = () => {
               <p
                 className={classNames(
                   "text-xl font-semibold text-[#000]",
-                  form.time === "HORÁRIO" ? "opacity-40" : "opacity-100"
+                  formattedDate.time === "HORÁRIO" ? "opacity-40" : "opacity-100"
                 )}
               >
-                {form.time}
+                {formattedDate.time}
               </p>
               <img className="ml-2" src={ArrowBottom} alt="arrow-schedules" />
             </div>

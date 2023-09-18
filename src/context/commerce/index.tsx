@@ -24,6 +24,11 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
     day: "",
     year: "",
     name_employee: "",
+    name_user: "",
+    description: "",
+    phone_number: "",
+    service: "SERVIÇO",
+    time: "HORÁRIO",
   });
 
   const value = useMemo(
@@ -66,4 +71,9 @@ interface CommerceSchedulesProps {
   day: string;
   year: string;
   name_employee: string;
+  name_user: string;
+  description: string;
+  phone_number: string;
+  service: string;
+  time: string;
 }
