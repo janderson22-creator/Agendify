@@ -6,7 +6,7 @@ import Employees from "../../components/Empoyees";
 import classNames from "../../utils/className";
 import Tooltip from "../../components/Base/tooltip";
 import InputSearch from "../../components/Base/input-search";
-import ToSchedule from "../../components/modals/ModalToSchedule";
+import ToSchedule from "../../components/ToSchedule";
 
 const Schedules: React.FC = () => {
   const { formattedDate, setFormattedDate } = useCommerce();
@@ -104,7 +104,14 @@ const Schedules: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-14">
+        <div
+          className={classNames(
+            "mt-14",
+            formattedDate?.name_employee
+              ? "opacity-100"
+              : "opacity-20 pointer-events-none cursor-not-allowed"
+          )}
+        >
           <ToSchedule />
         </div>
       </div>

@@ -8,7 +8,7 @@ interface Props {
   const Input: React.FC<Props> = ({ label, value, onChange, maxLength }) => {
     return (
       <div className="relative">
-        <p className="bg-[#5C6666] rounded-full text-[#EBEBF0] font-normal w-fit px-1.5 absolute left-2 -top-3">
+        <p className="bg-[#F0F0F5] rounded-full text-[#7E7D80] text-sm font-semibold w-fit px-1.5 absolute left-2 -top-3">
           {label}
         </p>
         <input
