@@ -16,7 +16,7 @@ const InputSearch: React.FC<Props> = ({ value, setValue }) => {
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Buscar aqui"
+        placeholder="Buscar profissional"
         type="text"
         className="text-sm w-full rounded-[20px] border border-[#EBEBF0] pl-[58px] py-2.5"
       />

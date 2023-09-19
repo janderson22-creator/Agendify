@@ -3,10 +3,24 @@ import { useCommerce } from "../../context/commerce";
 
 const DatePicker: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<string>("");
-  const { formattedDate, setFormattedDate } = useCommerce();
+  const { setFormattedDate } = useCommerce();
 
   const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
+    const currentDate = new Date();
+
+    const Currentyear = currentDate.getFullYear();
+    const Currentmonth = (currentDate.getMonth() + 1)
+      .toString()
+      .padStart(2, "0");
+    const Currentday = currentDate.getDate().toString().padStart(2, "0");
+    const formattedCurrentDate = `${Currentyear}-${Currentmonth}-${Currentday}`;
+
+    if (selectedDate < formattedCurrentDate) {
+      alert("Selecione uma data igual ou maior que hoje.");
+      return;
+    }
+
     const dateParts = selectedDate.split("-");
     const year = dateParts[0];
     const month = dateParts[1];
@@ -38,7 +52,7 @@ const DatePicker: React.FC = () => {
       "sexta-feira",
       "sábado",
     ];
-    return dayNames[dayIndex === 6 ? 0 : dayIndex + 1]
+    return dayNames[dayIndex === 6 ? 0 : dayIndex + 1];
   };
 
   return (
