@@ -41,10 +41,6 @@ const Schedules: React.FC = () => {
     }
   }, [formattedDate]);
 
-  useEffect(() => {
-    console.log(formattedDate);
-  }, [formattedDate]);
-
   return (
     <div className="w-full pt-[60px]">
       <div className="flex flex-col h-fit w-full rounded-[10px] py-5 px-4 mt-[30px]">
