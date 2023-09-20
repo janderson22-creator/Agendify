@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRightIcon } from "../../assets/icons/arrowRight";
 import { HomeIcon } from "../../assets/icons/homeIcon";
 import { ProductsIcon } from "../../assets/icons/productsIcon";
 import { SchedulesIcon } from "../../assets/icons/schedulesIcon";
@@ -8,17 +7,17 @@ import { ServicesIcon } from "../../assets/icons/services";
 import Logo from "../../assets/images/logo.png";
 import { useCommerce } from "../../context/commerce";
 import * as S from "./styles";
+import classNames from "../../utils/className";
 
 const Menu: React.FC = () => {
   const [currentItem, setCurrentItem] = useState("Inicio");
-  const [show, setShow] = useState(true);
   const { commerceId } = useCommerce();
 
   const items = useMemo(
     () => [
       {
         name: "Inicio",
-        router: `/jandersonStudio/${commerceId}`,
+        router: `/`,
         icon: <HomeIcon />,
       },
       {
@@ -41,31 +40,23 @@ const Menu: React.FC = () => {
   );
 
   return (
-    <S.Container show={show}>
-      <div className="hidden lg:block xl:block">
-        <img src={Logo} alt="logo-img" />
+    <S.Container>
+      <div className="hidden lg:block xl:block mr-auto">
+        <img className="max-w-[80px]" src={Logo} alt="logo-img" />
       </div>
-      <S.ItemsMenu>
+      <div className="w-full flex items-center justify-around lg:justify-center lg:mr-auto">
         {items.map((item, index) => (
           <Link to={item.router} key={index}>
             <S.ContainerLink
+              className="flex items-center justify-center rounded-[10px] lg:min-h-[40px] lg:min-w-[50px] lg:mx-5"
               checked={item.name === currentItem}
               onClick={() => setCurrentItem(item.name)}
             >
               <S.Icon checked={item.name === currentItem}>{item.icon}</S.Icon>
-              <S.NameLink name={item.name} show={show} checked={item.name === currentItem}>
-                {item.name}
-              </S.NameLink>
             </S.ContainerLink>
           </Link>
         ))}
-
-        <S.ArrowButtonContainer onClick={() => setShow(!show)} show={show}>
-          <S.ContainerIcon>
-            <ArrowRightIcon />
-          </S.ContainerIcon>
-        </S.ArrowButtonContainer>
-      </S.ItemsMenu>
+      </div>
     </S.Container>
   );
 };

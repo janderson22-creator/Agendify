@@ -42,7 +42,7 @@ const Schedules: React.FC = () => {
   }, [formattedDate]);
 
   return (
-    <div className="w-full pt-[60px]">
+    <div className="w-full">
       <div className="flex flex-col h-fit w-full rounded-[10px] py-5 px-4 mt-[30px]">
         <div>
           <label className="text-[#5C6666] text-[18px] font-semibold mr-4">
