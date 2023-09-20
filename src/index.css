@@ -7,6 +7,22 @@
   width: 0;
 }
 
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0000003d;
+  border-radius: 5px;
+}
+
 .fromTop {
   animation: toTop 0.6s cubic-bezier(0.53, -0.03, 0.67, 1.06);
   animation-direction: alternate;
