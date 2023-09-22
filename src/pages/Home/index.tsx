@@ -1,15 +1,15 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import Tooltip from "../../components/Base/tooltip";
 import { Link } from "react-router-dom";
 import { useCommerce } from "../../context/commerce";
 import { joinSentence } from "../../utils/join-sentence";
 
 const Home: React.FC = () => {
-  const { setCurrentCommerce } = useCommerce()
+  const { setCurrentCommerce, establishments } = useCommerce()
 
   return (
     <div className="flex items-center pt-4 h-full">
-      {establishments.map((item, index) => {
+      {establishments?.map((item, index) => {
         const [hoverTooltip, setHoverTooltip] = useState(false);
 
         return (
@@ -45,22 +45,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
-const establishments = [
-  {
-    id: 1,
-    name_establishment: "Janderson Costa Studio",
-    avatar_url: "https://picsum.photos/200/300",
-    cover_img: "https://picsum.photos/200/300",
-    type: "Estetica",
-    follow_up: "Barbearia",
-  },
-  {
-    id: 2,
-    name_establishment: "Rejane Cabelos",
-    avatar_url: "https://picsum.photos/200/300",
-    cover_img: "https://picsum.photos/200/300",
-    type: "Estetica",
-    follow_up: "Cabelereira",
-  },
-];

@@ -1,12 +1,24 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { collection, doc, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConnection";
+import Establishment from "../../pages/establishment";
 
 export type ContextValue = {
-  currentCommerce: Establishment | undefined;
-  setCurrentCommerce: React.Dispatch<React.SetStateAction<Establishment | undefined>>
+  currentCommerce: EstablishmentTypes | undefined;
+  setCurrentCommerce: React.Dispatch<
+    React.SetStateAction<EstablishmentTypes | undefined>
+  >;
   formattedDate: CommerceSchedulesProps;
   setFormattedDate: React.Dispatch<
     React.SetStateAction<CommerceSchedulesProps>
   >;
+  establishments: EstablishmentTypes[] | undefined;
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -17,7 +29,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   children,
   ...rest
 }) => {
-  const [currentCommerce, setCurrentCommerce] = useState<Establishment>();
+  const [currentCommerce, setCurrentCommerce] = useState<EstablishmentTypes>();
+  const [establishments, setEstablishments] = useState<EstablishmentTypes[]>();
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
     dayOnWeek: "",
     month: "",
@@ -31,18 +44,49 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
     time: "HORÁRIO",
   });
 
+  const fetchEstablishments = useCallback(async () => {
+    const establishmentsRef = collection(db, "establishments");
+
+    try {
+      const querySnapshot = await getDocs(establishmentsRef);
+
+      const establishmentsData = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        
+        return {
+          id: doc.id,
+          name_establishment: data.name_establishment || "",
+          avatar_url: data.avatar_url || "",
+          cover_url: data.cover_url || "",
+          type: data.type || "",
+          follow_up: data.follow_up || "",
+        };
+      });
+
+      setEstablishments(establishmentsData);
+    } catch (e) {
+      console.error("Erro to get establishments", e);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchEstablishments();
+  }, []);
+
   const value = useMemo(
     () => ({
       formattedDate,
       setFormattedDate,
       currentCommerce,
       setCurrentCommerce,
+      establishments,
     }),
     [
       formattedDate,
       setFormattedDate,
       currentCommerce,
       setCurrentCommerce,
+      establishments,
     ]
   );
 
@@ -83,11 +127,11 @@ interface CommerceSchedulesProps {
   time: string;
 }
 
-interface Establishment {
-  id: number | null;
+interface EstablishmentTypes {
+  id: string;
   name_establishment: string;
   avatar_url: string;
-  cover_img: string;
+  cover_url: string;
   type: string;
   follow_up: string;
 }

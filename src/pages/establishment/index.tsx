@@ -2,7 +2,7 @@ import * as S from "./styles";
 import CalendarIcon from "../../assets/icons/calendar-home.svg";
 import ServiceIcon from "../../assets/icons/service.svg";
 import ShopIcon from "../../assets/icons/shop.svg";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DetailsMoldal from "../../components/modals/ModalDetails";
 import { useCommerce } from "../../context/commerce";
 import { Link } from "react-router-dom";
@@ -41,7 +41,7 @@ const Establishment: React.FC = () => {
     <S.Container>
       <S.Header>
         <div className="relative">
-          <S.CoverImage src={currentCommerce?.cover_img} />
+          <S.CoverImage src={currentCommerce?.cover_url} />
           <S.ProfileImage src={currentCommerce?.avatar_url} />
         </div>
 
