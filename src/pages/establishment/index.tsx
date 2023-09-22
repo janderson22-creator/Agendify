@@ -44,7 +44,7 @@ const Establishment: React.FC = () => {
           <S.CoverImage src={currentCommerce?.cover_url} />
           <S.ProfileImage src={currentCommerce?.avatar_url} />
         </div>
-
+ 
         <div className="flex items-center justify-between px-[15px] lg:px-[20px] xl:px-[20px] pt-[20px] lg:pt-[15px] xl:pt-[15px]">
           <div className="flex flex-col-reverse lg:flex-col xl:flex-col lg:items-center xl:items-center">
             <S.CommerceName>{currentCommerce?.name_establishment}</S.CommerceName>
