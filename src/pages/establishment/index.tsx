@@ -1,5 +1,4 @@
 import * as S from "./styles";
-import LogoExample from "../../assets/images/logoExample.png";
 import CalendarIcon from "../../assets/icons/calendar-home.svg";
 import ServiceIcon from "../../assets/icons/service.svg";
 import ShopIcon from "../../assets/icons/shop.svg";
@@ -7,30 +6,32 @@ import { useMemo, useState } from "react";
 import DetailsMoldal from "../../components/modals/ModalDetails";
 import { useCommerce } from "../../context/commerce";
 import { Link } from "react-router-dom";
+import { joinSentence } from "../../utils/join-sentence";
 
 const Establishment: React.FC = () => {
+  const { currentCommerce } = useCommerce()
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const { commerceId } = useCommerce();
+
   const listItems = useMemo(
     () => [
       {
         icon: CalendarIcon,
         name: "Agendamento",
         sub: "Agende agora seu serviço e verifique nossos horarios",
-        link: `/jandersonStudio/${commerceId}/schedules`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/schedules`,
       },
       {
         icon: ServiceIcon,
         name: "Serviços",
         sub: "Confira agora nossa lista de serviços",
-        link: `/jandersonStudio/${commerceId}/services`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/services`,
       },
       {
         icon: ShopIcon,
         name: "Produtos",
         sub: "Confira nossa lista de produtos",
-        link: `/jandersonStudio/${commerceId}/products`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/products`,
       },
     ],
     []
@@ -40,14 +41,14 @@ const Establishment: React.FC = () => {
     <S.Container>
       <S.Header>
         <div className="relative">
-          <S.CoverImage src={LogoExample} />
-          <S.ProfileImage src={LogoExample} />
+          <S.CoverImage src={currentCommerce?.cover_img} />
+          <S.ProfileImage src={currentCommerce?.avatar_url} />
         </div>
 
         <div className="flex items-center justify-between px-[15px] lg:px-[20px] xl:px-[20px] pt-[20px] lg:pt-[15px] xl:pt-[15px]">
           <div className="flex flex-col-reverse lg:flex-col xl:flex-col lg:items-center xl:items-center">
-            <S.CommerceName>Janderson Costa Studio</S.CommerceName>
-            <S.CommerceType>Barbearia & Chopperia</S.CommerceType>
+            <S.CommerceName>{currentCommerce?.name_establishment}</S.CommerceName>
+            <S.CommerceType>{currentCommerce?.follow_up}</S.CommerceType>
           </div>
           <S.TimeOpen open={open}>
             <S.Icon open={open} /> 09:00 ás 19:00

@@ -28,9 +28,11 @@ export const CoverImage = styled.img`
 `;
 
 export const ProfileImage = styled.img`
+  width: 150px;
+  height: 150px;
   max-width: 150px;
   max-height: 150px;
-  border-radius: 100%;
+  border-radius: 50%;
   margin: 0 auto;
   left: 0;
   right: 0;

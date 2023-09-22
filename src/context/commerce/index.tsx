@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 export type ContextValue = {
-  commerceId: string;
-  setCommerceId: React.Dispatch<React.SetStateAction<string>>;
+  currentCommerce: Establishment | undefined;
+  setCurrentCommerce: React.Dispatch<React.SetStateAction<Establishment | undefined>>
   formattedDate: CommerceSchedulesProps;
   setFormattedDate: React.Dispatch<
     React.SetStateAction<CommerceSchedulesProps>
@@ -17,7 +17,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   children,
   ...rest
 }) => {
-  const [commerceId, setCommerceId] = useState(location.pathname.split("/")[2]);
+  const [currentCommerce, setCurrentCommerce] = useState<Establishment>();
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
     dayOnWeek: "",
     month: "",
@@ -33,12 +33,17 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 
   const value = useMemo(
     () => ({
-      commerceId,
-      setCommerceId,
       formattedDate,
       setFormattedDate,
+      currentCommerce,
+      setCurrentCommerce,
     }),
-    [commerceId, setCommerceId, formattedDate, setFormattedDate]
+    [
+      formattedDate,
+      setFormattedDate,
+      currentCommerce,
+      setCurrentCommerce,
+    ]
   );
 
   return (
@@ -76,4 +81,13 @@ interface CommerceSchedulesProps {
   phone_number: string;
   service: string;
   time: string;
+}
+
+interface Establishment {
+  id: number | null;
+  name_establishment: string;
+  avatar_url: string;
+  cover_img: string;
+  type: string;
+  follow_up: string;
 }
