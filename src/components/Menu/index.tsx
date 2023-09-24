@@ -75,7 +75,7 @@ const Menu: React.FC = () => {
                 id: null,
                 name_establishment: "",
                 avatar_url: "",
-                cover_img: "",
+                cover_url: "",
                 type: "",
                 follow_up: "",
               })
