@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { collection, doc, getDocs } from "firebase/firestore";
 import { db } from "../../firebaseConnection";
-import Establishment from "../../pages/establishment";
 
 export type ContextValue = {
   currentCommerce: EstablishmentTypes | undefined;

@@ -37,7 +37,7 @@ export const Container = styled.div<Props>`
   }
 `;
 
-export const ContainerLink = styled.div<Props>`
+export const ContainerLink = styled.div`
   transition: all 0.3s ease-in;
   :hover {
     background: #2f3a59;
