@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseConnection";
 
 export type ContextValue = {
@@ -18,6 +18,8 @@ export type ContextValue = {
     React.SetStateAction<CommerceSchedulesProps>
   >;
   establishments: EstablishmentTypes[] | undefined;
+  fetchEstablishmentsById: (id: string) => Promise<void>;
+  loadingEstablishments: boolean;
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -30,6 +32,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 }) => {
   const [currentCommerce, setCurrentCommerce] = useState<EstablishmentTypes>();
   const [establishments, setEstablishments] = useState<EstablishmentTypes[]>();
+  const [loadingEstablishments, setLoadingEstablishments] = useState(false);
+  const [loadingEstablishment, setLoadingEstablishment] = useState(false);
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
     dayOnWeek: "",
     month: "",
@@ -44,6 +48,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   });
 
   const fetchEstablishments = useCallback(async () => {
+    setLoadingEstablishments(true);
     const establishmentsRef = collection(db, "establishments");
 
     try {
@@ -51,7 +56,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 
       const establishmentsData = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        
+
         return {
           id: doc.id,
           name_establishment: data.name_establishment || "",
@@ -63,8 +68,31 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       });
 
       setEstablishments(establishmentsData);
-    } catch (e) {
-      console.error("Erro to get establishments", e);
+    } finally {
+      setLoadingEstablishments(false);
+    }
+  }, []);
+
+  const fetchEstablishmentsById = useCallback(async (id: string) => {
+    setLoadingEstablishment(true);
+    const establishmentsRef = doc(db, "establishments", id);
+
+    try {
+      const querySnapshot = await getDoc(establishmentsRef);
+      const data = querySnapshot.data();
+
+      if (data) {
+        setCurrentCommerce({
+          id: id,
+          name_establishment: data.name_establishment || "",
+          avatar_url: data.avatar_url || "",
+          cover_url: data.cover_url || "",
+          type: data.type || "",
+          follow_up: data.follow_up || "",
+        });
+      }
+    } finally {
+      setLoadingEstablishment(false);
     }
   }, []);
 
@@ -79,6 +107,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       currentCommerce,
       setCurrentCommerce,
       establishments,
+      fetchEstablishmentsById,
+      loadingEstablishments,
     }),
     [
       formattedDate,
@@ -86,6 +116,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       currentCommerce,
       setCurrentCommerce,
       establishments,
+      fetchEstablishmentsById,
+      loadingEstablishments,
     ]
   );
 
