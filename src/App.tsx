@@ -12,7 +12,7 @@ const App: React.FC = () => {
     <Router>
       <Global />
       <Menu />
-        <div className="max-w-[1280px] mx-auto w-full px-5 lg:px-5 mt-[80px]">
+        <div className="max-w-[1280px] mx-auto w-full px-5 lg:px-5 mt-[40px]">
           <RoutesMain />
         </div>
     </Router>

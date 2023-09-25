@@ -20,6 +20,7 @@ export type ContextValue = {
   establishments: EstablishmentTypes[] | undefined;
   fetchEstablishmentsById: (id: string) => Promise<void>;
   loadingEstablishments: boolean;
+  loadingEstablishment: boolean
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -109,6 +110,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       establishments,
       fetchEstablishmentsById,
       loadingEstablishments,
+      loadingEstablishment
     }),
     [
       formattedDate,
@@ -118,6 +120,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       establishments,
       fetchEstablishmentsById,
       loadingEstablishments,
+      loadingEstablishment
     ]
   );
 
