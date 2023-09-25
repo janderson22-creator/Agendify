@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { joinSentence } from "../../utils/join-sentence";
 
 const Establishment: React.FC = () => {
-  const { currentCommerce } = useCommerce()
+  const { currentCommerce, fetchEstablishmentsById } = useCommerce();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
@@ -19,23 +19,37 @@ const Establishment: React.FC = () => {
         icon: CalendarIcon,
         name: "Agendamento",
         sub: "Agende agora seu serviço e verifique nossos horarios",
-        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/schedules`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+          currentCommerce?.id
+        }/schedules`,
       },
       {
         icon: ServiceIcon,
         name: "Serviços",
         sub: "Confira agora nossa lista de serviços",
-        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/services`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+          currentCommerce?.id
+        }/services`,
       },
       {
         icon: ShopIcon,
         name: "Produtos",
         sub: "Confira nossa lista de produtos",
-        link: `/${joinSentence(currentCommerce?.name_establishment || '')}/${currentCommerce?.id}/products`,
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+          currentCommerce?.id
+        }/products`,
       },
     ],
     []
   );
+
+  useEffect(() => {
+    if (currentCommerce) return;
+
+    const id = location.pathname.split("/")[2];
+
+    fetchEstablishmentsById(id);
+  }, []);
 
   return (
     <S.Container>
@@ -44,10 +58,12 @@ const Establishment: React.FC = () => {
           <S.CoverImage src={currentCommerce?.cover_url} />
           <S.ProfileImage src={currentCommerce?.avatar_url} />
         </div>
- 
+
         <div className="flex items-center justify-between px-[15px] lg:px-[20px] xl:px-[20px] pt-[20px] lg:pt-[15px] xl:pt-[15px]">
           <div className="flex flex-col-reverse lg:flex-col xl:flex-col lg:items-center xl:items-center">
-            <S.CommerceName>{currentCommerce?.name_establishment}</S.CommerceName>
+            <S.CommerceName>
+              {currentCommerce?.name_establishment}
+            </S.CommerceName>
             <S.CommerceType>{currentCommerce?.follow_up}</S.CommerceType>
           </div>
           <S.TimeOpen open={open}>
