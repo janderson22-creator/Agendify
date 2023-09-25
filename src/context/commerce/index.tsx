@@ -19,6 +19,7 @@ export type ContextValue = {
   >;
   establishments: EstablishmentTypes[] | undefined;
   fetchEstablishmentsById: (id: string) => Promise<void>;
+  loadingEstablishments: boolean;
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -31,6 +32,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 }) => {
   const [currentCommerce, setCurrentCommerce] = useState<EstablishmentTypes>();
   const [establishments, setEstablishments] = useState<EstablishmentTypes[]>();
+  const [loadingEstablishments, setLoadingEstablishments] = useState(false);
+  const [loadingEstablishment, setLoadingEstablishment] = useState(false);
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
     dayOnWeek: "",
     month: "",
@@ -45,6 +48,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   });
 
   const fetchEstablishments = useCallback(async () => {
+    setLoadingEstablishments(true);
     const establishmentsRef = collection(db, "establishments");
 
     try {
@@ -64,12 +68,13 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       });
 
       setEstablishments(establishmentsData);
-    } catch (e) {
-      console.error("Erro to get establishments", e);
+    } finally {
+      setLoadingEstablishments(false);
     }
   }, []);
 
   const fetchEstablishmentsById = useCallback(async (id: string) => {
+    setLoadingEstablishment(true);
     const establishmentsRef = doc(db, "establishments", id);
 
     try {
@@ -86,8 +91,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           follow_up: data.follow_up || "",
         });
       }
-    } catch (e) {
-      console.error("Erro to get establishments", e);
+    } finally {
+      setLoadingEstablishment(false);
     }
   }, []);
 
@@ -103,6 +108,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       setCurrentCommerce,
       establishments,
       fetchEstablishmentsById,
+      loadingEstablishments,
     }),
     [
       formattedDate,
@@ -111,6 +117,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       setCurrentCommerce,
       establishments,
       fetchEstablishmentsById,
+      loadingEstablishments,
     ]
   );
 
