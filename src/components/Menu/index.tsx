@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { HomeIcon } from "../../assets/icons/homeIcon";
 import { ProductsIcon } from "../../assets/icons/productsIcon";
@@ -8,25 +8,25 @@ import { useCommerce } from "../../context/commerce";
 import * as S from "./styles";
 import { joinSentence } from "../../utils/join-sentence";
 import classNames from "../../utils/className";
-import Establishment from "../../pages/establishment";
 
 const Menu: React.FC = () => {
-  const [currentItem, setCurrentItem] = useState("Inicio");
   const { currentCommerce, setCurrentCommerce } = useCommerce();
 
   const items = useMemo(
     () => [
       {
         name: "Inicio",
-        router: `/`,
+        link: `/`,
         icon: <HomeIcon />,
         show: true,
+        routes: [""],
       },
       {
         name: "Agendar",
-        router: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/schedules`,
+        routes: ["/:name/:id/schedules"],
         icon: <SchedulesIcon />,
         show:
           currentCommerce &&
@@ -37,9 +37,10 @@ const Menu: React.FC = () => {
       },
       {
         name: "Produtos",
-        router: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/products`,
+        routes: ["/:name/:id/products"],
         icon: <ProductsIcon />,
         show:
           currentCommerce &&
@@ -50,9 +51,10 @@ const Menu: React.FC = () => {
       },
       {
         name: "Serviços",
-        router: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
+        link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/services`,
+        routes: ["/:name/:id/services"],
         icon: <ServicesIcon />,
         show:
           currentCommerce &&
@@ -65,6 +67,24 @@ const Menu: React.FC = () => {
     [location.pathname, setCurrentCommerce]
   );
 
+  const verifyRouterTradings = useCallback(
+    (routes: string[]) => {
+      for (const route of routes) {
+        const regex = new RegExp(`^${route.replace(/:\w+/g, "\\w+")}$`);
+        if (location.pathname === "/") {
+          return true;
+        } else {
+          if (regex.test(location.pathname)) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    },
+    [location.pathname]
+  );
+
   return (
     <S.Container>
       <div className="w-full flex items-center justify-around lg:justify-center lg:mr-auto">
@@ -72,7 +92,7 @@ const Menu: React.FC = () => {
           <Link
             onClick={() =>
               setCurrentCommerce({
-                id: null,
+                id: "",
                 name_establishment: "",
                 avatar_url: "",
                 cover_url: "",
@@ -80,18 +100,19 @@ const Menu: React.FC = () => {
                 follow_up: "",
               })
             }
-            to={item.router}
+            to={item.link}
             key={index}
           >
             <S.ContainerLink
               className={classNames(
                 "items-center justify-center rounded-[10px] lg:min-h-[40px] lg:min-w-[50px] lg:mx-5",
-                item.show ? "flex" : "hidden"
+                item.show ? "flex" : "hidden",
+                verifyRouterTradings(item.routes) ? "" : ""
               )}
-              checked={item.name === currentItem}
-              onClick={() => setCurrentItem(item.name)}
             >
-              <S.Icon checked={item.name === currentItem}>{item.icon}</S.Icon>
+              <S.Icon checked={verifyRouterTradings(item.routes)}>
+                {item.icon}
+              </S.Icon>
             </S.ContainerLink>
           </Link>
         ))}
