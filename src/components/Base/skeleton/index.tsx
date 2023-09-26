@@ -24,7 +24,7 @@ const Skeleton: React.FC<Props> = ({
         ? numberQuantity.map((_, index) => (
             <div
               className={classNames(
-                "animate-pulse bg-[#00000060] rounded-[10px] w-full",
+                "animate-pulse bg-[#00000060] w-full",
                 style
               )}
               key={index}

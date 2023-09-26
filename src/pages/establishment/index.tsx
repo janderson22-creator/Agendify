@@ -7,9 +7,10 @@ import DetailsMoldal from "../../components/modals/ModalDetails";
 import { useCommerce } from "../../context/commerce";
 import { Link } from "react-router-dom";
 import { joinSentence } from "../../utils/join-sentence";
+import Skeleton from "../../components/Base/skeleton";
 
 const Establishment: React.FC = () => {
-  const { currentCommerce, fetchEstablishmentsById } = useCommerce();
+  const { currentCommerce, fetchEstablishmentsById, loadingEstablishment } = useCommerce();
   const [open, setOpen] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
@@ -55,8 +56,19 @@ const Establishment: React.FC = () => {
     <S.Container>
       <S.Header>
         <div className="relative">
-          <S.CoverImage src={currentCommerce?.cover_url} />
-          <S.ProfileImage src={currentCommerce?.avatar_url} />
+          <Skeleton
+            style="w-full h-[250px]"
+            loading={loadingEstablishment}
+          >
+            <S.CoverImage src={currentCommerce?.cover_url} />
+          </Skeleton>
+
+          <Skeleton
+            style="w-[150px] max-w-[150px] h-[150px] max-h-[150px] rounded-[50%] absolute -bottom-[50px] left-0 right-0 mx-auto border-[5px]"
+            loading={loadingEstablishment}
+          >
+            <S.ProfileImage src={currentCommerce?.avatar_url} />
+          </Skeleton>
         </div>
 
         <div className="flex items-center justify-between px-[15px] lg:px-[20px] xl:px-[20px] pt-[20px] lg:pt-[15px] xl:pt-[15px]">
