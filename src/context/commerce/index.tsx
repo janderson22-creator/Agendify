@@ -80,7 +80,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 
     try {
       const querySnapshot = await getDoc(establishmentsRef);
-      const data = querySnapshot.data();
+      const data = querySnapshot.data() as EstablishmentTypes;
 
       if (data) {
         setCurrentCommerce({

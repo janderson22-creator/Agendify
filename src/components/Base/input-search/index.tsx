@@ -3,9 +3,10 @@ import SearchIcon from "../../../assets/icons/search.svg";
 interface Props {
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string
 }
 
-const InputSearch: React.FC<Props> = ({ value, setValue }) => {
+const InputSearch: React.FC<Props> = ({ value, setValue, placeholder }) => {
   return (
     <div className="flex relative">
       <img
@@ -16,9 +17,9 @@ const InputSearch: React.FC<Props> = ({ value, setValue }) => {
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="Buscar profissional"
+        placeholder={placeholder}
         type="text"
-        className="text-sm w-full rounded-[20px] border border-[#EBEBF0] pl-[58px] py-2.5"
+        className="text-sm w-full rounded-[10px] border border-[#EBEBF0] pl-[58px] py-2.5"
       />
     </div>
   );

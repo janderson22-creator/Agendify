@@ -64,7 +64,7 @@ const Schedules: React.FC = () => {
                 : "opacity-20 pointer-events-none cursor-not-allowed"
             )}
           >
-            <InputSearch value={searchValue} setValue={setSearchValue} />
+            <InputSearch value={searchValue} setValue={setSearchValue} placeholder="Buscar profissional" />
             <Employees value={searchValue} />
           </div>
           {hoverTooltip && !dateSelected && (
