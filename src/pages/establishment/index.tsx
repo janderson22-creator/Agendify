@@ -41,7 +41,7 @@ const Establishment: React.FC = () => {
         }/products`,
       },
     ],
-    []
+    [currentCommerce]
   );
 
   useEffect(() => {
