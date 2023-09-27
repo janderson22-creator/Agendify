@@ -12,17 +12,17 @@ const Home: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [hoverTooltips, setHoverTooltips] = useState<HoverTooltipsState>({});
 
-
   const filterEstablishments = useMemo(() => {
     if (search === "") {
       return establishments;
     } else {
       return establishments?.filter((item) =>
-        item.name_establishment.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        item.name_establishment
+          .toLocaleLowerCase()
+          .includes(search.toLocaleLowerCase())
       );
     }
-  }, [search]);
-  
+  }, [search, establishments]);
 
   return (
     <div className="flex flex-col pt-8 h-full">
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
                     {item.name_establishment}
                   </span>
                   <span className="text-[#8E8E92] text-sm">
-                    {item.follow_up}
+                    {item.type || item.follow_up}
                   </span>
                 </div>
 

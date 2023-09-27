@@ -9,9 +9,23 @@ import InputSearch from "../../components/Base/input-search";
 import ToSchedule from "../../components/ToSchedule";
 
 const Schedules: React.FC = () => {
-  const { formattedDate, setFormattedDate } = useCommerce();
+  const {
+    fetchEstablishmentsById,
+    currentCommerce,
+    formattedDate,
+    setFormattedDate,
+  } = useCommerce();
   const [hoverTooltip, setHoverTooltip] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [schedulesEmployee, setSchedulesEmployee] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (currentCommerce) return;
+
+    const id = location.pathname.split("/")[2];
+
+    fetchEstablishmentsById(id);
+  }, []);
 
   useEffect(() => {
     setFormattedDate({
@@ -64,8 +78,15 @@ const Schedules: React.FC = () => {
                 : "opacity-20 pointer-events-none cursor-not-allowed"
             )}
           >
-            <InputSearch value={searchValue} setValue={setSearchValue} placeholder="Buscar profissional" />
-            <Employees value={searchValue} />
+            <InputSearch
+              value={searchValue}
+              setValue={setSearchValue}
+              placeholder="Buscar profissional"
+            />
+            <Employees
+              value={searchValue}
+              setSchedules={setSchedulesEmployee}
+            />
           </div>
           {hoverTooltip && !dateSelected && (
             <Tooltip message={"Selecione a data que deseja o atendimento"} />
@@ -116,7 +137,7 @@ const Schedules: React.FC = () => {
               : "opacity-20 pointer-events-none cursor-not-allowed"
           )}
         >
-          <ToSchedule />
+          <ToSchedule services={currentCommerce?.services} schedules={schedulesEmployee} />
         </div>
       </div>
     </div>
