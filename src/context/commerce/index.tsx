@@ -20,7 +20,7 @@ export type ContextValue = {
   establishments: EstablishmentTypes[] | undefined;
   fetchEstablishmentsById: (id: string) => Promise<void>;
   loadingEstablishments: boolean;
-  loadingEstablishment: boolean
+  loadingEstablishment: boolean;
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -56,7 +56,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       const querySnapshot = await getDocs(establishmentsRef);
 
       const establishmentsData = querySnapshot.docs.map((doc) => {
-        const data = doc.data();
+        const data = doc.data() as EstablishmentTypes;
 
         return {
           id: doc.id,
@@ -65,6 +65,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           cover_url: data.cover_url || "",
           type: data.type || "",
           follow_up: data.follow_up || "",
+          employees: data.employees || [],
+          services: data.services || []
         };
       });
 
@@ -90,6 +92,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           cover_url: data.cover_url || "",
           type: data.type || "",
           follow_up: data.follow_up || "",
+          employees: data.employees || [],
+          services: data.services || []
         });
       }
     } finally {
@@ -110,7 +114,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       establishments,
       fetchEstablishmentsById,
       loadingEstablishments,
-      loadingEstablishment
+      loadingEstablishment,
     }),
     [
       formattedDate,
@@ -120,7 +124,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       establishments,
       fetchEstablishmentsById,
       loadingEstablishments,
-      loadingEstablishment
+      loadingEstablishment,
     ]
   );
 
@@ -168,4 +172,11 @@ interface EstablishmentTypes {
   cover_url: string;
   type: string;
   follow_up: string;
+  employees: {
+    avatar_url: string;
+    function: string;
+    name: string;
+    schedules: string[]
+  }[];
+  services: string[]
 }
