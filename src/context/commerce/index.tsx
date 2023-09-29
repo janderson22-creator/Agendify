@@ -66,7 +66,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           type: data.type || "",
           follow_up: data.follow_up || "",
           employees: data.employees || [],
-          services: data.services || []
+          services: data.services || [],
+          about: data.about
         };
       });
 
@@ -93,7 +94,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           type: data.type || "",
           follow_up: data.follow_up || "",
           employees: data.employees || [],
-          services: data.services || []
+          services: data.services || [],
+          about: data.about
         });
       }
     } finally {
@@ -179,4 +181,10 @@ interface EstablishmentTypes {
     schedules: string[]
   }[];
   services: string[]
+  about: {
+    description: string;
+    images: string[];
+    location: string;
+    phone_number: string
+  }
 }

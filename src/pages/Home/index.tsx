@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   }, [search, establishments]);
 
   return (
-    <div className="flex flex-col pt-8 h-full">
+    <div className="flex flex-col h-full mt-7">
       <InputSearch
         value={search}
         setValue={setSearch}
