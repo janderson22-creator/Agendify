@@ -88,9 +88,11 @@ const Schedules: React.FC = () => {
               setSchedules={setSchedulesEmployee}
             />
           </div>
+
           {hoverTooltip && !dateSelected && (
             <Tooltip message={"Selecione a data que deseja o atendimento"} />
           )}
+
           {hoverTooltip &&
             dateSelected &&
             !formattedDate.name_employee &&
@@ -137,7 +139,10 @@ const Schedules: React.FC = () => {
               : "opacity-20 pointer-events-none cursor-not-allowed"
           )}
         >
-          <ToSchedule services={currentCommerce?.services} schedules={schedulesEmployee} />
+          <ToSchedule
+            services={currentCommerce?.services}
+            schedules={schedulesEmployee}
+          />
         </div>
       </div>
     </div>

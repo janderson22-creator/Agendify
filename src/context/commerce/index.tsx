@@ -67,7 +67,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           follow_up: data.follow_up || "",
           employees: data.employees || [],
           services: data.services || [],
-          about: data.about
+          about: data.about,
+          products: data.products
         };
       });
 
@@ -95,7 +96,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           follow_up: data.follow_up || "",
           employees: data.employees || [],
           services: data.services || [],
-          about: data.about
+          about: data.about,
+          products: data.products
         });
       }
     } finally {
@@ -187,4 +189,9 @@ interface EstablishmentTypes {
     location: string;
     phone_number: string
   }
+  products: {
+    product_name: string;
+    product_url: string;
+    value: string
+  }[]
 }
