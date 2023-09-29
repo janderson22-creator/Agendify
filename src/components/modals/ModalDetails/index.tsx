@@ -8,6 +8,7 @@ import { EmailIcon } from "../../../assets/icons/emailIcon";
 import { InstagramIcon } from "../../../assets/icons/instagramIcon";
 import { PhoneIcon } from "../../../assets/icons/phoneIcon";
 import ModalImage from "./modalImage";
+import { useCommerce } from "../../../context/commerce";
 
 interface Props {
   show: boolean;
@@ -17,6 +18,8 @@ interface Props {
 const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
   const [showImage, setShowImage] = useState(false);
   const [imageSelected, setImageSelected] = useState<any>();
+  const { currentCommerce } = useCommerce()
+
   const icons = useMemo(
     () => [
       {
@@ -73,20 +76,17 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
           </div>
           <div className="mt-[20px]">
             <S.TextSub>
-              Somos a JandersonCostaStudio, uma barbearia e shopperia na cidade
-              de Natal - RN. Somos referência no seguimento barbearia e corte de
-              cabelo em todo o Brasil, nossos produtos são conhecidos por
-              entragar serviçoes exemplares e saborosos.
+              {currentCommerce?.about.description}
             </S.TextSub>
           </div>
         </div>
 
         <S.ContainerCards>
           <Slider {...settings}>
-            {[1, 2, 3, 4].map((item, index) => (
+            {currentCommerce?.about.images.map((item, index) => (
               <img
-                className="min-w-[75px] min-h-[75px] max-w-[80px] max-h-[80px] mr-3 rounded-[10px]"
-                onClick={() => clickImage("https://picsum.photos/200/300")}
+                className="cursor-pointer min-w-[75px] min-h-[75px] max-w-[80px] max-h-[80px] mr-3 rounded-[10px]"
+                onClick={() => clickImage(item)}
                 key={index}
                 src="https://picsum.photos/200/300"
               />
@@ -100,15 +100,13 @@ const DetailsModal: React.FC<Props> = ({ show, setShow }) => {
             Localização do estabelecimento
           </S.LabelInformation>
           <S.Subtitle>
-            Avenida das Amoebas - 1200, Natal-RN CEP: 59112-000
+            {currentCommerce?.about.location}
           </S.Subtitle>
         </div>
 
         <div className="mt-[20px] px-[30px]">
           <S.LabelInformation>Dados sobre o estabelecimento</S.LabelInformation>
-          <S.Subtitle>CNPJ: XX.XXX.XXX/0001-XX</S.Subtitle>
-          <S.Subtitle>Seguimento: Barbearia</S.Subtitle>
-          <S.Subtitle>Tempo de entrega: 30 - 50 minutos</S.Subtitle>
+          <S.Subtitle>Seguimento: {currentCommerce?.type}</S.Subtitle>
         </div>
 
         <div className="mt-[20px] px-[30px]">

@@ -9,10 +9,12 @@ import * as S from "./styles";
 import { joinSentence } from "../../utils/join-sentence";
 import classNames from "../../utils/className";
 import { CommerceIcon } from "../../assets/icons/commerce";
+import Tooltip from "../Base/tooltip";
 
 const Menu: React.FC = () => {
   const { currentCommerce, setCurrentCommerce } = useCommerce();
   const location = useLocation();
+  const [hoverTooltips, setHoverTooltips] = useState<HoverTooltipsState>({});
   const [pathname, setPathname] = useState<string>("");
 
   useEffect(() => {
@@ -22,14 +24,14 @@ const Menu: React.FC = () => {
   const items = useMemo(
     () => [
       {
-        name: "home",
+        name: "Inicio",
         link: `/`,
         icon: <HomeIcon />,
         show: true,
         checked: pathname === "/",
       },
       {
-        name: "commerce",
+        name: "Estabelecimento",
         link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }`,
@@ -43,7 +45,7 @@ const Menu: React.FC = () => {
         checked: pathname.split("/").length === 3,
       },
       {
-        name: "schedules",
+        name: "Agendamento",
         link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/schedules`,
@@ -57,7 +59,7 @@ const Menu: React.FC = () => {
         checked: pathname.includes("schedules"),
       },
       {
-        name: "products",
+        name: "Produtos",
         link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/products`,
@@ -71,7 +73,7 @@ const Menu: React.FC = () => {
         checked: pathname.includes("products"),
       },
       {
-        name: "services",
+        name: "Serviços",
         link: `/${joinSentence(currentCommerce?.name_establishment || "")}/${
           currentCommerce?.id
         }/services`,
@@ -91,36 +93,48 @@ const Menu: React.FC = () => {
   return (
     <S.Container>
       <div className="w-full flex items-center justify-around lg:justify-center lg:mr-auto">
-        {items.map((item, index) => (
-          <Link
-            onClick={() =>
-              item.name === "inicio" &&
-              setCurrentCommerce({
-                id: "",
-                name_establishment: "",
-                avatar_url: "",
-                cover_url: "",
-                type: "",
-                follow_up: "",
-              })
-            }
-            to={item.link}
-            key={index}
-          >
-            <S.ContainerLink
-              className={classNames(
-                "items-center justify-center rounded-[10px] lg:min-h-[40px] lg:min-w-[50px] lg:mx-5",
-                item.show ? "flex" : "hidden",
-                item.checked ? "" : ""
-              )}
-            >
-              <S.Icon checked={item.checked}>{item.icon}</S.Icon>
-            </S.ContainerLink>
-          </Link>
-        ))}
+        {items.map((item, index) => {
+          const handleMouseEnter = () => {
+            setHoverTooltips((prevState) => ({
+              ...prevState,
+              [index]: true,
+            }));
+          };
+
+          const handleMouseLeave = () => {
+            setHoverTooltips((prevState) => ({
+              ...prevState,
+              [index]: false,
+            }));
+          };
+
+          const isHovered = hoverTooltips[index] || false;
+
+          return (
+            <Link to={item.link} key={index}>
+              <S.ContainerLink
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className={classNames(
+                  "items-center justify-center rounded-[10px] lg:min-h-[40px] lg:min-w-[50px] lg:mx-5 relative",
+                  item.show ? "flex" : "hidden",
+                  item.checked ? "" : ""
+                )}
+              >
+                <S.Icon checked={item.checked}>{item.icon}</S.Icon>
+
+                {isHovered && <Tooltip message={item.name} />}
+              </S.ContainerLink>
+            </Link>
+          );
+        })}
       </div>
     </S.Container>
   );
 };
 
 export default Menu;
+
+interface HoverTooltipsState {
+  [index: number]: boolean;
+}

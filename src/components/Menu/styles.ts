@@ -6,12 +6,7 @@ interface Props {
 }
 
 export const Container = styled.div<Props>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  position: fixed;
-  top: 0;
   background: linear-gradient(
       86.57deg,
       #373740 47.14%,
