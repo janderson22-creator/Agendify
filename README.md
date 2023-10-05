@@ -1,2 +1,2 @@
 # schedules
-Serviço de agendamento para profissionais que desejam trabalhar com horario marcado em seu estabelecimento.
+Scheduling service for professionals who wish to work by appointment in your establishment.
