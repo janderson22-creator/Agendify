@@ -29,8 +29,10 @@ const DatePicker: React.FC = () => {
     const dayOnWeek = getDayOfWeek(year, month, day);
     const monthName = getMonthName(parseInt(dateParts[1], 10));
 
+
     setFormattedDate((prevState) => ({
       ...prevState,
+      date: selectedDate,
       day,
       dayOnWeek,
       month: monthName,

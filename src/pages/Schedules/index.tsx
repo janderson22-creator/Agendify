@@ -29,6 +29,7 @@ const Schedules: React.FC = () => {
 
   useEffect(() => {
     setFormattedDate({
+      date: "",
       dayOnWeek: "",
       month: "",
       day: "",
@@ -54,6 +55,10 @@ const Schedules: React.FC = () => {
       return true;
     }
   }, [formattedDate]);
+
+  useEffect(() => {
+    console.log(formattedDate)
+  }, [formattedDate])
 
   return (
     <div className="w-full">
