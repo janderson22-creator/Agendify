@@ -57,6 +57,7 @@ const Schedules: React.FC = () => {
     }
   }, [formattedDate]);
 
+
   return (
     <div className="w-full">
       <div className="flex flex-col h-fit w-full rounded-[10px] py-5 px-4 mt-[30px]">
@@ -142,7 +143,6 @@ const Schedules: React.FC = () => {
           )}
         >
           <ToSchedule
-            services={currentCommerce?.services}
             schedules={schedulesEmployee}
           />
         </div>

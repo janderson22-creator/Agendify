@@ -271,13 +271,7 @@ interface EstablishmentTypes {
   cover_url: string;
   type: string;
   follow_up: string;
-  employees: {
-    id: string;
-    avatar_url: string;
-    function: string;
-    name: string;
-    schedules: string[];
-  }[];
+  employees: EmployeeTypes[];
   services: string[];
   about: {
     description: string;
@@ -290,4 +284,36 @@ interface EstablishmentTypes {
     product_url: string;
     value: string;
   }[];
+}
+
+export interface EmployeeTypes {
+  id: string;
+  avatar_url: string;
+  function: string;
+  name: string;
+  schedules: {
+    monday: string[],
+    tuesday: string[],
+    wednesday: string[],
+    thursday: string[],
+    friday: string[],
+    saturday: string[],
+    sunday: string[],
+  };
+  schedules_marked: ScheduleMarkedTypes[];
+}
+
+export interface ScheduleMarkedTypes {
+  description: string;
+  name_user: string;
+  phone_number: string;
+  service: string;
+  start: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  end: {
+    seconds: number;
+    nanoseconds: number;
+  };
 }

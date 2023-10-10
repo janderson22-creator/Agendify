@@ -7,11 +7,10 @@ import InputMask from "react-input-mask";
 import { useCommerce } from "../../context/commerce";
 
 interface Props {
-  services: string[] | undefined;
   schedules: string[];
 }
 
-const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
+const ToSchedule: React.FC<Props> = ({ schedules }) => {
   const [showTimes, setShowTimes] = useState(false);
   const { formattedDate, setFormattedDate, currentCommerce, editSchedules } =
     useCommerce();
@@ -48,7 +47,7 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
         onMouseLeave={() => setShowServices(false)}
         className="absolute top-[60px] left-0 right-0 rounded-b-[10px] z-[1] max-h-[200px] overflow-y-scroll scrollbarNone"
       >
-        {services?.map((service, index) => (
+        {currentCommerce?.services.map((service, index) => (
           <div
             onClick={() => {
               setFormattedDate((prevState) => ({
