@@ -11,10 +11,10 @@ import {
   getDocs,
   getDoc,
   updateDoc,
+  Timestamp
 } from "firebase/firestore";
 import { db } from "../../firebaseConnection";
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { addHours } from 'date-fns';
 
 export type ContextValue = {
   currentCommerce: EstablishmentTypes | undefined;
@@ -30,8 +30,8 @@ export type ContextValue = {
   loadingEstablishments: boolean;
   loadingEstablishment: boolean;
   editSchedules: (
+    id_employee: string,
     start: string,
-    end: string,
     time: string,
     name_user: string,
     phone_number: string,
@@ -53,6 +53,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   const [loadingEstablishments, setLoadingEstablishments] = useState(false);
   const [loadingEstablishment, setLoadingEstablishment] = useState(false);
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
+    id_employee: "",
     date: "",
     dayOnWeek: "",
     month: "",
@@ -129,8 +130,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
 
   const editSchedules = useCallback(
     async (
+      id_employee: string,
       start: string,
-      end: string,
       time: string,
       name_user: string,
       phone_number: string,
@@ -141,50 +142,42 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
         if (currentCommerce) {
           const docRef = doc(db, "establishments", currentCommerce.id);
           const snapshot = await getDoc(docRef);
-
+  
           if (snapshot.exists()) {
             const data = snapshot.data();
-
+  
             // Encontre o funcionário com id igual a "1"
             const employeeIndex = data.employees.findIndex(
-              (employee: { id: string }) => employee.id === "1"
+              (employee: { id: string }) => employee.id === id_employee
             );
-
+  
             if (employeeIndex !== -1) {
               // Obtenha o objeto employees existente
               const existingEmployee = data.employees[employeeIndex];
-
+  
               // Concatene a data e a hora
               const startDate = new Date(`${start} ${time}`);
-              const endDate = new Date(`${end} ${time}`);
-
-              // Formate as datas em português
-              const formattedStartDate = format(
-                startDate,
-                `dd 'de' MMMM 'de' yyyy 'às' HH:mm:ss`,
-                { locale: ptBR }
-              );
-              const formattedEndDate = format(
-                endDate,
-                `dd 'de' MMMM 'de' yyyy 'às' HH:mm:ss`,
-                { locale: ptBR }
-              );
-
+              const endDate = addHours(startDate, 1);
+  
+              // Converta as datas para Timestamp
+              const startTimestamp = Timestamp.fromDate(startDate);
+              const endTimestamp = Timestamp.fromDate(endDate);
+  
               // Adicione o novo objeto à matriz schedules_marked do funcionário encontrado
               const newSchedule = {
-                start: formattedStartDate,
-                end: formattedEndDate,
+                start: startTimestamp,
+                end: endTimestamp,
                 name_user,
                 phone_number,
                 service,
                 description,
               };
-
+  
               const updatedSchedules = [
                 ...existingEmployee.schedules_marked,
                 newSchedule,
               ];
-
+  
               // Atualize o objeto employees com as novas informações
               const updatedEmployees = [
                 ...data.employees.slice(0, employeeIndex),
@@ -194,7 +187,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
                 },
                 ...data.employees.slice(employeeIndex + 1),
               ];
-
+  
               // Atualize o documento para adicionar o objeto employees atualizado
               await updateDoc(docRef, { employees: updatedEmployees });
             }
@@ -257,6 +250,7 @@ interface ChildrenProps {
   children: React.ReactNode;
 }
 interface CommerceSchedulesProps {
+  id_employee: string;
   date: string;
   dayOnWeek: string;
   month: string;

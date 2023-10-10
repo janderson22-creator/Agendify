@@ -87,10 +87,6 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
     [isFormEmpty]
   );
 
-  useEffect(() => {
-    console.log(formattedDate);
-  }, [formattedDate]);
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -204,7 +200,7 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
         <Button
           onClick={() =>
             editSchedules(
-              formattedDate.date,
+              formattedDate.id_employee,
               formattedDate.date,
               formattedDate.time,
               formattedDate.name_user,
