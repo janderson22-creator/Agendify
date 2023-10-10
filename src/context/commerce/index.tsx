@@ -5,8 +5,16 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { collection, doc, getDocs, getDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  updateDoc,
+  Timestamp
+} from "firebase/firestore";
 import { db } from "../../firebaseConnection";
+import { addHours } from 'date-fns';
 
 export type ContextValue = {
   currentCommerce: EstablishmentTypes | undefined;
@@ -21,6 +29,15 @@ export type ContextValue = {
   fetchEstablishmentsById: (id: string) => Promise<void>;
   loadingEstablishments: boolean;
   loadingEstablishment: boolean;
+  editSchedules: (
+    id_employee: string,
+    start: string,
+    time: string,
+    name_user: string,
+    phone_number: string,
+    service: string,
+    description: string
+  ) => Promise<void>;
 };
 
 export const CommerceContext = React.createContext<ContextValue | undefined>(
@@ -36,6 +53,8 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
   const [loadingEstablishments, setLoadingEstablishments] = useState(false);
   const [loadingEstablishment, setLoadingEstablishment] = useState(false);
   const [formattedDate, setFormattedDate] = useState<CommerceSchedulesProps>({
+    id_employee: "",
+    date: "",
     dayOnWeek: "",
     month: "",
     day: "",
@@ -68,7 +87,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           employees: data.employees || [],
           services: data.services || [],
           about: data.about,
-          products: data.products
+          products: data.products,
         };
       });
 
@@ -97,7 +116,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
           employees: data.employees || [],
           services: data.services || [],
           about: data.about,
-          products: data.products
+          products: data.products,
         });
       }
     } finally {
@@ -109,6 +128,78 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
     fetchEstablishments();
   }, []);
 
+  const editSchedules = useCallback(
+    async (
+      id_employee: string,
+      start: string,
+      time: string,
+      name_user: string,
+      phone_number: string,
+      service: string,
+      description: string
+    ) => {
+      try {
+        if (currentCommerce) {
+          const docRef = doc(db, "establishments", currentCommerce.id);
+          const snapshot = await getDoc(docRef);
+  
+          if (snapshot.exists()) {
+            const data = snapshot.data();
+  
+            // Encontre o funcionário com id igual a "1"
+            const employeeIndex = data.employees.findIndex(
+              (employee: { id: string }) => employee.id === id_employee
+            );
+  
+            if (employeeIndex !== -1) {
+              // Obtenha o objeto employees existente
+              const existingEmployee = data.employees[employeeIndex];
+  
+              // Concatene a data e a hora
+              const startDate = new Date(`${start} ${time}`);
+              const endDate = addHours(startDate, 1);
+  
+              // Converta as datas para Timestamp
+              const startTimestamp = Timestamp.fromDate(startDate);
+              const endTimestamp = Timestamp.fromDate(endDate);
+  
+              // Adicione o novo objeto à matriz schedules_marked do funcionário encontrado
+              const newSchedule = {
+                start: startTimestamp,
+                end: endTimestamp,
+                name_user,
+                phone_number,
+                service,
+                description,
+              };
+  
+              const updatedSchedules = [
+                ...existingEmployee.schedules_marked,
+                newSchedule,
+              ];
+  
+              // Atualize o objeto employees com as novas informações
+              const updatedEmployees = [
+                ...data.employees.slice(0, employeeIndex),
+                {
+                  ...existingEmployee,
+                  schedules_marked: updatedSchedules,
+                },
+                ...data.employees.slice(employeeIndex + 1),
+              ];
+  
+              // Atualize o documento para adicionar o objeto employees atualizado
+              await updateDoc(docRef, { employees: updatedEmployees });
+            }
+          }
+        }
+      } catch (e) {
+        console.log("ERROR TO EDIT SCHEDULES", e);
+      }
+    },
+    [currentCommerce]
+  );
+
   const value = useMemo(
     () => ({
       formattedDate,
@@ -119,6 +210,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       fetchEstablishmentsById,
       loadingEstablishments,
       loadingEstablishment,
+      editSchedules,
     }),
     [
       formattedDate,
@@ -129,6 +221,7 @@ export const CommerceProvider: React.FC<ChildrenProps> = ({
       fetchEstablishmentsById,
       loadingEstablishments,
       loadingEstablishment,
+      editSchedules,
     ]
   );
 
@@ -157,6 +250,8 @@ interface ChildrenProps {
   children: React.ReactNode;
 }
 interface CommerceSchedulesProps {
+  id_employee: string;
+  date: string;
   dayOnWeek: string;
   month: string;
   day: string;
@@ -177,21 +272,22 @@ interface EstablishmentTypes {
   type: string;
   follow_up: string;
   employees: {
+    id: string;
     avatar_url: string;
     function: string;
     name: string;
-    schedules: string[]
+    schedules: string[];
   }[];
-  services: string[]
+  services: string[];
   about: {
     description: string;
     images: string[];
     location: string;
-    phone_number: string
-  }
+    phone_number: string;
+  };
   products: {
     product_name: string;
     product_url: string;
-    value: string
-  }[]
+    value: string;
+  }[];
 }

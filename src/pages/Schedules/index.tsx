@@ -29,6 +29,8 @@ const Schedules: React.FC = () => {
 
   useEffect(() => {
     setFormattedDate({
+      id_employee: "",
+      date: "",
       dayOnWeek: "",
       month: "",
       day: "",

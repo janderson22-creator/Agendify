@@ -7,13 +7,14 @@ import InputMask from "react-input-mask";
 import { useCommerce } from "../../context/commerce";
 
 interface Props {
-  services: string[] | undefined
-  schedules: string[]
+  services: string[] | undefined;
+  schedules: string[];
 }
 
 const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
   const [showTimes, setShowTimes] = useState(false);
-  const { formattedDate, setFormattedDate, currentCommerce } = useCommerce();
+  const { formattedDate, setFormattedDate, currentCommerce, editSchedules } =
+    useCommerce();
   const [showServices, setShowServices] = useState(false);
 
   const availableTime = useMemo(() => {
@@ -59,9 +60,7 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
             key={index}
             className="flex items-center justify-center bg-[#8593A6] hover:bg-[#9dabc0] w-full py-4 px-2 border-b border-[#cccccc90] last-of-type:rounded-b-[10px] last-of-type:border-none"
           >
-            <p className="text-[#FFF] opacity-75 font-bold">
-              {service}
-            </p>
+            <p className="text-[#FFF] opacity-75 font-bold">{service}</p>
           </div>
         ))}
       </div>
@@ -199,7 +198,17 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
 
       <div className="w-6/12 mx-auto mt-8">
         <Button
-          onClick={() => console.log("teste")}
+          onClick={() =>
+            editSchedules(
+              formattedDate.id_employee,
+              formattedDate.date,
+              formattedDate.time,
+              formattedDate.name_user,
+              formattedDate.phone_number,
+              formattedDate.service,
+              formattedDate.description
+            )
+          }
           disabled={isFormEmpty}
           text={isFormEmpty ? "PREENCHA TODOS OS ESPAÇOS" : "AGENDAR"}
         />
@@ -209,41 +218,3 @@ const ToSchedule: React.FC<Props> = ({ services, schedules }) => {
 };
 
 export default ToSchedule;
-
-interface Form {
-  name: string;
-  description: string;
-  price: string;
-  phone_number: string;
-  time: string;
-}
-
-const times = [
-  {
-    time: "8:00",
-  },
-  {
-    time: "9:00",
-  },
-  {
-    time: "11:00",
-  },
-  {
-    time: "12:00",
-  },
-  {
-    time: "14:00",
-  },
-  {
-    time: "15:00",
-  },
-  {
-    time: "17:00",
-  },
-  {
-    time: "18:00",
-  },
-  {
-    time: "19:00",
-  },
-];

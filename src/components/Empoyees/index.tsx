@@ -42,6 +42,7 @@ const Employees: React.FC<Props> = ({ value, setSchedules }) => {
                 onClick={() => {
                   setFormattedDate((prevState) => ({
                     ...prevState,
+                    id_employee: employeer.id,
                     name_employee: employeer.name,
                   }));
                   setSchedules(employeer.schedules);
